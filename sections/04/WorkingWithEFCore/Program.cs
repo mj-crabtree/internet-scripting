@@ -13,10 +13,10 @@ namespace Crabtree.Shared
     {
         static void Main(string[] args)
         {
-            // QueryingCategories();
+            QueryingCategories();
             // FilteredIncludes();
             // QueryingProducts();
-            QueryingWithLike();
+            // QueryingWithLike();
         }
 
         static void QueryingCategories()
@@ -30,8 +30,12 @@ namespace Crabtree.Shared
                 WriteLine("Categories, and how many products they have:");
 
                 // A query which fetches all categories, products in each
-                IQueryable<Category> categories =
-                    db.Categories.Include(c => c.Products);
+                // using Include() == eager loading (loads categories & products)
+                // IQueryable<Category> categories =
+                //     db.Categories.Include(c => c.Products);
+
+                // lazy loading
+                IQueryable<Category> categories = db.Categories;
 
                 foreach (var c in categories)
                 {
