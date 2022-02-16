@@ -34,11 +34,39 @@ namespace Crabtree.Shared
                 // IQueryable<Category> categories =
                 //     db.Categories.Include(c => c.Products);
 
-                // lazy loading
-                IQueryable<Category> categories = db.Categories;
+                IQueryable<Category> categories;
+                
+                db.ChangeTracker.LazyLoadingEnabled = false;
+                Write("Enable eager loading? Y/N: ");
+                bool eagerLoading = (ReadKey().Key == ConsoleKey.Y);
+                bool explicitLoading = false;
+                
+                if (eagerLoading)
+                {
+                    categories = db.Categories.Include(c => c.Products);
+                }
+                else
+                {
+                    categories = db.Categories;
+                    Write("Explicit loading enabled? Y/N: ");
+                    explicitLoading = (ReadKey().Key == ConsoleKey.Y);
+                    WriteLine();
+                }
 
                 foreach (var c in categories)
                 {
+                    if (explicitLoading)
+                    {
+                        Write($"Explicitly load products for {c.CategoryName}? Y/N: ");
+                        var key = ReadKey();
+                        WriteLine();
+                        
+                        if (key.Key == ConsoleKey.Y)
+                        {
+                            var products = db.Entry(c).Collection(c2 => c2.Products);
+                            if (!products.IsLoaded) products.Load();
+                        }
+                    }
                     WriteLine($"{c.CategoryName} has {c.Products.Count} products");
                 }
             }
