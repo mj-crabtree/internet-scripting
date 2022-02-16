@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="../northwind-context-lib/northwind-context-lib.csproj" />
+    <ProjectReference Include="../NorthwindEmployees/NorthwindEmployees.csproj" />
+    <ProjectCapability Include="../NorthwindProducts/NorthwindProducts.csproj" />
+  </ItemGroup>
+</Project>

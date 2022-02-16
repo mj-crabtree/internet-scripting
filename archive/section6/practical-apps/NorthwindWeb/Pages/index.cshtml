@@ -1,0 +1,29 @@
+@page
+
+@functions
+{
+    public string DayName { get; set; }
+
+    public void OnGet()
+    {
+        DayName = DateTime.Now.ToString("dddd");
+    }
+}
+
+<div class="jumbotron">
+    <h1 class="display-3">Welcome to Northwind</h1>
+    <p class="lead">We supply products to our customers</p>
+    <hr/>
+    <p>it's @DayName! blah blah blah</p>
+    <p>
+        <a href="suppliers" class="btn btn-primary">
+            learn more about our suppliers
+        </a>
+    </p>
+    <p>
+        <a class="btn btn-primary" href="feature/employees">Contact Employees</a>
+    </p>
+    <p>
+        <a class="btn btn-primary" href="myfeature/products">Contact Employees</a>
+    </p>
+</div>
