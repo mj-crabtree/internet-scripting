@@ -3,6 +3,7 @@ using Crabtree.Shared;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
@@ -19,22 +20,18 @@ namespace Crabtree.Shared
             // QueryingProducts();
             // QueryingWithLike();
 
-            // if (AddProduct(6, "Bob's Burgers", 500M))
-            // {
-            //     System.Console.WriteLine("Add product successful");
-            // }
-			
-			if (IncreaseProductPrice("Bob", 20M))
-			{
-				System.Console.WriteLine("Price Updated");
-			}
+            if (AddProduct(6, "Bob's Burgers", 500M))
+            {
+                System.Console.WriteLine("Add product successful");
+            }
 
-            ListProducts();
-			
-			ReadKey();
-			
-			DeleteProduct("Bob");
-				
+            if (IncreaseProductPrice("Bob", 20M))
+            {
+                System.Console.WriteLine("Price Updated");
+            }
+
+            DeleteProduct("Bob");
+
             ListProducts();
         }
 
@@ -204,22 +201,27 @@ namespace Crabtree.Shared
             using (var db = new Northwind())
             {
                 var updateProduct = db.Products.First(p => p.ProductName.StartsWith(name));
-				updateProduct.Cost+= amount;
-				int affected = db.SaveChanges();
-				return (affected == 1);
+                updateProduct.Cost += amount;
+                int affected = db.SaveChanges();
+                return (affected == 1);
             }
         }
-		
-		static bool DeleteProduct(string name)
-		{
-			using (var db = new Northwind())
-			{
-				var deletedProduct = db.Products.Where(p => p.ProductName.StartsWith(name));
-				db.Products.RemoveRange(deletedProduct);
-				int affected = db.SaveChanges();
-				return (affected == 1);
-				
-			}
-		}
+
+        static int DeleteProduct(string name)
+        {
+            using (var db = new Northwind())
+            {
+                using (var t = db.Database.BeginTransaction())
+                {
+					System.Console.WriteLine("Transaction isolation level: {0}", t.GetDbTransaction().IsolationLevel);
+					
+                    var deletedProduct = db.Products.Where(p => p.ProductName.StartsWith(name));
+                    db.Products.RemoveRange(deletedProduct);
+                    int affected = db.SaveChanges();
+					t.Commit();
+                    return affected;
+                }
+            }
+        }
     }
 }
