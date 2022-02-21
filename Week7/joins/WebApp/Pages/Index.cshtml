@@ -1,0 +1,30 @@
+@page
+@model WebApp.Pages.AlbumsModel
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>WebApp</title>
+</head>
+
+<body>
+    <h1>@Model.Heading</h1>
+</body>
+
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Album</th>
+        <th>Artist</th>
+    </tr>
+    @foreach (var item in Model.QueryResult)
+    {
+        <tr>
+            <td>@item.AlbumId</td>
+            <td>@item.AlbumTitle</td>
+            <td>@item.ArtistName</td>
+        </tr>
+    }
+</table>
+
+</html>
