@@ -1,5 +1,6 @@
 ﻿@page "/fetchdata"
 @using BlazorPWA.Shared
+@using McRobbie.Com
 @inject HttpClient Http
 
 <h1>Weather forecast</h1>
@@ -33,7 +34,14 @@ else
             }
         </tbody>
     </table>
+    
+    @foreach (var c in forecasts[0].Characters)
+    {
+        <p>@c.Firstname @c.Lastname</p>
+    }
 }
+
+
 
 @code {
     private WeatherForecast[] forecasts;

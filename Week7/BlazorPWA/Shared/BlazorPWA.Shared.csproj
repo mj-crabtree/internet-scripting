@@ -6,5 +6,6 @@
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />
+    <ProjectReference Include="../../Context/Context.csproj" />
   </ItemGroup>
 </Project>

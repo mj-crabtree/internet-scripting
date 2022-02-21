@@ -13,6 +13,7 @@ namespace Crabtree.Shared
     {
         static void Main(string[] args)
         {
+            // manipulating data with ef core
             QueryingCategories();
             // FilteredIncludes();
             // QueryingProducts();
