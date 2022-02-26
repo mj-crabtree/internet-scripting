@@ -12,10 +12,11 @@ namespace Crabtree.Shared
         {
         }
 
-        public Northwind(DbContextOptions<Northwind> options)
-            : base(options)
+        public Northwind(DbContextOptions<Northwind> options) : base(options)
         {
         }
+
+        // entities begin
 
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
@@ -28,6 +29,8 @@ namespace Crabtree.Shared
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<Territory> Territories { get; set; }
 
+        // entities end
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -38,30 +41,9 @@ namespace Crabtree.Shared
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Category>(entity =>
-            {
-                entity.Property(e => e.CategoryID).ValueGeneratedNever();
-            });
-
-            modelBuilder.Entity<Employee>(entity =>
-            {
-                entity.Property(e => e.EmployeeID).ValueGeneratedNever();
-            });
-
-            modelBuilder.Entity<Order>(entity =>
-            {
-                entity.Property(e => e.OrderID).ValueGeneratedNever();
-
-                entity.Property(e => e.Freight).HasDefaultValueSql("0");
-            });
-
             modelBuilder.Entity<OrderDetail>(entity =>
             {
                 entity.HasKey(e => new { e.OrderID, e.ProductID });
-
-                entity.Property(e => e.Quantity).HasDefaultValueSql("1");
-
-                entity.Property(e => e.UnitPrice).HasDefaultValueSql("0");
 
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.OrderDetails)
@@ -74,31 +56,9 @@ namespace Crabtree.Shared
                     .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
-            modelBuilder.Entity<Product>(entity =>
-            {
-                entity.Property(e => e.ProductID).ValueGeneratedNever();
-
-                entity.Property(e => e.Discontinued).HasDefaultValueSql("0");
-
-                entity.Property(e => e.ReorderLevel).HasDefaultValueSql("0");
-
-                entity.Property(e => e.UnitPrice).HasDefaultValueSql("0");
-
-                entity.Property(e => e.UnitsInStock).HasDefaultValueSql("0");
-
-                entity.Property(e => e.UnitsOnOrder).HasDefaultValueSql("0");
-            });
-
-            modelBuilder.Entity<Shipper>(entity =>
-            {
-                entity.Property(e => e.ShipperID).ValueGeneratedNever();
-            });
-
-            modelBuilder.Entity<Supplier>(entity =>
-            {
-                entity.Property(e => e.SupplierID).ValueGeneratedNever();
-            });
-
+            modelBuilder.Entity<Product>()
+                .Property(p => p.UnitPrice)
+                .HasConversion<double>();
             OnModelCreatingPartial(modelBuilder);
         }
 
