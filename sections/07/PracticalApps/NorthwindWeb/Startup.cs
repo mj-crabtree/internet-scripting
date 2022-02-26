@@ -22,7 +22,7 @@ namespace NorthwindWeb
             string dbPath = Path.Combine("..", "northwind.db");
             services.AddDbContext<Northwind>(options =>
                 options.UseSqlite($"Data Source={dbPath}"));
-            
+
             services.AddRazorPages();
         }
 
@@ -42,7 +42,7 @@ namespace NorthwindWeb
             app.UseHttpsRedirection();
             app.UseDefaultFiles();
             app.UseStaticFiles();
-            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();

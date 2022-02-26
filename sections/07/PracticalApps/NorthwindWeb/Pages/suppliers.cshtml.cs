@@ -10,6 +10,8 @@ namespace NorthwindWeb.Pages
 {
     public class SuppliersModel : PageModel
     {
+        [BindProperty]
+        public Supplier Supplier { get; set; }
         private readonly ILogger<SuppliersModel> _logger;
         public IEnumerable<string> Suppliers { get; set; }
         private Northwind dbContext;
@@ -24,6 +26,17 @@ namespace NorthwindWeb.Pages
         {
             ViewData["Title"] = "Northwind Web Site - Suppliers";
             Suppliers = dbContext.Suppliers.Select(s => s.CompanyName);
+        }
+        
+        public IActionResult OnPost()
+        {
+            if (ModelState.IsValid)
+            {
+                dbContext.Suppliers.Add(Supplier);
+                dbContext.SaveChanges();
+                return RedirectToPage("/suppliers");
+            }
+            return Page();
         }
     }
 }
