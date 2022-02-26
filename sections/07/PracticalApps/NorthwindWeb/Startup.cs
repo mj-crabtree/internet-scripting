@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +8,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Crabtree.Shared;
 
 namespace NorthwindWeb
 {
@@ -16,6 +19,10 @@ namespace NorthwindWeb
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            string dbPath = Path.Combine("..", "northwind.db");
+            services.AddDbContext<Northwind>(options =>
+                options.UseSqlite($"Data Source={dbPath}"));
+            
             services.AddRazorPages();
         }
 
