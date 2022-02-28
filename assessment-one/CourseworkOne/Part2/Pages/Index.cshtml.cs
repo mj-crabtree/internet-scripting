@@ -26,6 +26,7 @@ namespace Part2.Pages
         {
             ViewData["StudentInfo"] = "Matthew Crabtree (B00414581)";
             Students = context.Students.ToList();
+            ViewData["average"] = Students.Average(s => s.ExamMark);
         }
     }
 }

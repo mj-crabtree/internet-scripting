@@ -20,8 +20,11 @@
                 <td>@item.Firstname</td>
                 <td>@item.Lastname</td>
                 <td>@item.ExamMark</td>
-                <td>@item.ExamMark</td>
+                <td>@(item.ExamMark >= 40 ? "pass" : "fail")</td>
             </tr>
         }
     </table>
+    <div>
+        <p>Average mark: @ViewData["average"]</p>
+    </div>
 </div>
