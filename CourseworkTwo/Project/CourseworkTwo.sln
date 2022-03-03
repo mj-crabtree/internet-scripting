@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChinookWeb", "ChinookWeb\ChinookWeb.csproj", "{8B19EB0C-B1B4-40DE-BE9C-ABFBDF72471C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChinookContext", "ChinookContext\ChinookContext.csproj", "{8A5AD5F1-315F-4861-A36C-CDD566C9184A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChinookEntities", "ChinookEntities\ChinookEntities.csproj", "{70FC07D0-6591-4F32-99C1-9ECAF4CCBE5E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8B19EB0C-B1B4-40DE-BE9C-ABFBDF72471C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B19EB0C-B1B4-40DE-BE9C-ABFBDF72471C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B19EB0C-B1B4-40DE-BE9C-ABFBDF72471C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B19EB0C-B1B4-40DE-BE9C-ABFBDF72471C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A5AD5F1-315F-4861-A36C-CDD566C9184A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A5AD5F1-315F-4861-A36C-CDD566C9184A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A5AD5F1-315F-4861-A36C-CDD566C9184A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A5AD5F1-315F-4861-A36C-CDD566C9184A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70FC07D0-6591-4F32-99C1-9ECAF4CCBE5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70FC07D0-6591-4F32-99C1-9ECAF4CCBE5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70FC07D0-6591-4F32-99C1-9ECAF4CCBE5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70FC07D0-6591-4F32-99C1-9ECAF4CCBE5E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
