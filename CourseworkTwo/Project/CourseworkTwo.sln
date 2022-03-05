@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChinookContext", "ChinookCo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChinookEntities", "ChinookEntities\ChinookEntities.csproj", "{70FC07D0-6591-4F32-99C1-9ECAF4CCBE5E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChinookService", "ChinookService\ChinookService.csproj", "{5BCCFE97-6064-4581-BA0E-F213B2B7F23D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{70FC07D0-6591-4F32-99C1-9ECAF4CCBE5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70FC07D0-6591-4F32-99C1-9ECAF4CCBE5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70FC07D0-6591-4F32-99C1-9ECAF4CCBE5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BCCFE97-6064-4581-BA0E-F213B2B7F23D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BCCFE97-6064-4581-BA0E-F213B2B7F23D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BCCFE97-6064-4581-BA0E-F213B2B7F23D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BCCFE97-6064-4581-BA0E-F213B2B7F23D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

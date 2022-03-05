@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ChinookContext\ChinookContext.csproj" />
     <ProjectReference Include="..\ChinookEntities\ChinookEntities.csproj" />
+    <ProjectReference Include="..\ChinookService\ChinookService.csproj" />
   </ItemGroup>
 
   <ItemGroup>

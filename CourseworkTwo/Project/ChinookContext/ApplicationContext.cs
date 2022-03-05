@@ -1,4 +1,4 @@
-﻿using ChinookEntities;
+﻿using ChinookEntities.AutoGenModel;
 using Microsoft.EntityFrameworkCore;
 
 #nullable disable
