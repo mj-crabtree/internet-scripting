@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ChinookContext;
-using ChinookEntities.CompositeModel;
+using ChinookEntities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ChinookService.AlbumService
 {
@@ -14,17 +16,20 @@ namespace ChinookService.AlbumService
             _applicationContext = applicationContext;
         }
 
-        public IEnumerable<CompositeAlbum> GetCompositeAlbums()
+        public IList<Album> GetAlbums()
         {
-            using (_applicationContext)
-            {
-                return _applicationContext.Albums.Join(
-                    inner: _applicationContext.Artists,
-                    outerKeySelector: album => album.ArtistId,
-                    innerKeySelector: artist => artist.ArtistId,
-                    resultSelector: (album, artist) => new CompositeAlbum(
-                        album.Title, artist.Name)).ToList();
-            }
+            return _applicationContext.Albums
+                .Include(a => a.Artist)
+                .Include(a => a.Tracks)
+                .ToList();
+        }
+
+        public Album GetAlbum(int id)
+        {
+            return _applicationContext.Albums
+                .Include(a => a.Tracks)
+                .Include(a => a.Artist)
+                .First(a => a.AlbumId == id);
         }
     }
 }

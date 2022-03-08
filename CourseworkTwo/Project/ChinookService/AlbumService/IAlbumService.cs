@@ -1,11 +1,13 @@
 using System.Collections.Generic;
+using System.Linq;
 using ChinookContext;
-using ChinookEntities.CompositeModel;
+using ChinookEntities;
 
 namespace ChinookService.AlbumService
 {
     public interface IAlbumService
     {
-        public abstract IEnumerable<CompositeAlbum> GetCompositeAlbums();
+        public IList<Album> GetAlbums();
+        public Album GetAlbum(int id);
     }
 }
