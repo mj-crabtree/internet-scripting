@@ -5,23 +5,26 @@ using ChinookEntities.CompositeModel;
 
 namespace ChinookService.AlbumService
 {
-    public static class AlbumBuilder
+    public class AlbumService : IAlbumService
     {
-        public static IEnumerable<CompositeAlbum> GetCompositeAlbums(ApplicationContext context)
-        {
-            List<CompositeAlbum> albums;
+        private readonly ApplicationContext _applicationContext;
 
-            using (context)
+        public AlbumService(ApplicationContext applicationContext)
+        {
+            _applicationContext = applicationContext;
+        }
+
+        public IEnumerable<CompositeAlbum> GetCompositeAlbums()
+        {
+            using (_applicationContext)
             {
-                albums = context.Albums.Join(
-                    inner: context.Artists,
+                return _applicationContext.Albums.Join(
+                    inner: _applicationContext.Artists,
                     outerKeySelector: album => album.ArtistId,
                     innerKeySelector: artist => artist.ArtistId,
                     resultSelector: (album, artist) => new CompositeAlbum(
                         album.Title, artist.Name)).ToList();
             }
-
-            return albums;
         }
     }
 }

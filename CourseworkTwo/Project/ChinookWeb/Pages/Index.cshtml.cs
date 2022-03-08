@@ -14,19 +14,19 @@ namespace ChinookWeb.Pages
 {
     public class IndexModel : PageModel
     {
-        private ApplicationContext Context { get; set; }
+        private IAlbumService _albumService;
         public IEnumerable<CompositeAlbum> Albums { get; set; }
         private readonly ILogger<IndexModel> _logger;
 
-        public IndexModel(ApplicationContext context, ILogger<IndexModel> logger)
+        public IndexModel(IAlbumService albumService, ILogger<IndexModel> logger)
         {
-            Context = context;
+            _albumService = albumService;
             _logger = logger;
         }
 
         public void OnGet()
         {
-            Albums = AlbumBuilder.GetCompositeAlbums(Context);
+            Albums = _albumService.GetCompositeAlbums();
         }
     }
 }
