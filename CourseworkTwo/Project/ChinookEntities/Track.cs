@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
-namespace ChinookEntities.AutoGenModel
+namespace ChinookEntities
 {
     [Table("tracks")]
     [Index(nameof(AlbumId), Name = "IFK_TrackAlbumId")]

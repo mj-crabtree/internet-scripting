@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
-namespace ChinookEntities.AutoGenModel
+namespace ChinookEntities
 {
     [Table("invoice_items")]
     [Index(nameof(InvoiceId), Name = "IFK_InvoiceLineInvoiceId")]

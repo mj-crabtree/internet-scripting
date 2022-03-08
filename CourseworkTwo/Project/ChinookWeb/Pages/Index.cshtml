@@ -1,27 +1,6 @@
-﻿@page
-@using Microsoft.EntityFrameworkCore.Metadata.Internal
-@model IndexModel
+@page
+@model ChinookWeb.Pages.Index
+
 @{
-    ViewData["Title"] = "Albums";
+    Layout = null;
 }
-
-<div>
-    <h1 class="display-4">Albums</h1>
-</div>
-
-<table class="table">
-    <thead>
-    <tr>
-        <td>Album Name</td>
-        <td>Album Artist</td>
-    </tr>
-    </thead>
-    @foreach (var album in Model.Albums)
-    {
-        <tr>
-            <td>@album.AlbumName</td>
-            <td>@album.AlbumArtist</td>
-            <td><button class="btn btn-outline-primary">Edit</button></td>
-        </tr>
-    }
-</table>

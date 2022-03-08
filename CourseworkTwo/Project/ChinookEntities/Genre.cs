@@ -4,22 +4,22 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
-namespace ChinookEntities.AutoGenModel
+namespace ChinookEntities
 {
-    [Table("media_types")]
-    public partial class MediaType
+    [Table("genres")]
+    public partial class Genre
     {
-        public MediaType()
+        public Genre()
         {
             Tracks = new HashSet<Track>();
         }
 
         [Key]
-        public long MediaTypeId { get; set; }
+        public long GenreId { get; set; }
         [Column(TypeName = "NVARCHAR(120)")]
         public string Name { get; set; }
 
-        [InverseProperty(nameof(Track.MediaType))]
+        [InverseProperty(nameof(Track.Genre))]
         public virtual ICollection<Track> Tracks { get; set; }
     }
 }
