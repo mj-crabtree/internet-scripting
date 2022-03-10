@@ -2,42 +2,95 @@
 @using ChinookEntities
 @model ChinookWeb.Pages.Albums.Details
 
-<form>
-    <div class="form-row">
-        <div class="col-md-4 mb-3">
-            <label for="albumTitle">Album Title</label>
-            <input type="text" class="form-control" id="albumTitle" placeholder="Album Title" value="@Model.Album.Title" required>
+@functions
+{
+    int _trackNumber = 1;
+
+    static string TrackLengthInSeconds(Track track)
+    {
+        var timespan = TimeSpan.FromMilliseconds(track.Milliseconds);
+        return string.Format("{0}:{1:00}",
+            (int) timespan.TotalMinutes, // <== Note the casting to int.
+            timespan.Seconds);
+    }
+
+    static double ConvertBytesToMegabytes(long bytes)
+    {
+        return (bytes / 1024f) / 1024f;
+    }
+}
+
+<div class="fluid-container">
+    <h2 class="font-italic">@Model.Album.Artist.Name - @Model.Album.Title</h2>
+    <hr>
+    <div class="row">
+        <div class="col-4">
+            <h4>Album Details</h4>
+            <hr>
+            <form>
+                <div class="mb-3">
+                    <label for="albumTitle">Album Title</label>
+                    <input type="text" class="form-control" id="albumTitle" placeholder="Album Title" value="@Model.Album.Title" required>
+                </div>
+                <div class="mb-3">
+                    <label for="albumArtist">Album Artist</label>
+                    <input type="text" class="form-control" id="albumArtist" placeholder="Album Artist" value="@Model.Album.Artist.Name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="albumGenre">Genre</label>
+                    <input type="text" class="form-control" id="albumGenre" placeholder="Genre" value="@Model.AlbumGenre" required>
+                </div>
+                <div class="mb-3">
+                    <label for="validationDefault03">Composer</label>
+                    <input type="text" class="form-control" id="validationDefault03" placeholder="City" required>
+                </div>
+                <div class="mb-3">
+                    <label for="validationDefault04">State</label>
+                    <input type="text" class="form-control" id="validationDefault04" placeholder="State" required>
+                </div>
+                <div class="mb-3">
+                    <label for="validationDefault05">Zip</label>
+                    <input type="text" class="form-control" id="validationDefault05" placeholder="Zip" required>
+                </div>
+                <div class="mb-3">
+                    <div class="form-group">
+                        <div class="btn-group align-bottom" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-outline-secondary">Cancel</button>
+                            <button type="button" class="btn btn-outline-secondary text-primary">Save Changes</button>
+                            <button type="button" class="btn btn-outline-secondary text-danger">Delete Album</button>
+                            
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="col-md-4 mb-3">
-            <label for="albumArtist">Album Artist</label>
-            <input type="text" class="form-control" id="albumArtist" placeholder="Album Artist" value="@Model.Album.Artist.Name" required>
-        </div>
-        <div class="col-md-4 mb-3">
-            <label for="albumGenre">Genre</label>
-            <input type="text" class="form-control" id="albumGenre" placeholder="Last name" value="@Model.Album.Tracks.Count" required>
+        <div class="col-8">
+            <h4>Tracklist</h4>
+            <hr>
+            <table class="table">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Composer</th>
+                    <th scope="col" class="text-right">Length</th>
+                    <th scope="col" class="text-right">Size (MB)</th>
+                    <th scope="col" class="text-right">Price</th>
+                </tr>
+                </thead>
+                @foreach (var track in Model.Album.Tracks)
+                {
+                    <tr>
+                        <td>@_trackNumber</td>
+                        <td>@track.Name</td>
+                        <td>@(track.Composer == null ? "N/A" : track.Composer)</td>
+                        <td class="text-right">@TrackLengthInSeconds(track)</td>
+                        <td class="text-right">@ConvertBytesToMegabytes(track.Bytes).ToString("0.00")</td>
+                        <td class="text-right">£@track.UnitPrice</td>
+                    </tr>
+                    _trackNumber = _trackNumber + 1;
+                }
+            </table>
         </div>
     </div>
-    <div class="form-row">
-        <div class="col-md-6 mb-3">
-            <label for="validationDefault03">City</label>
-            <input type="text" class="form-control" id="validationDefault03" placeholder="City" required>
-        </div>
-        <div class="col-md-3 mb-3">
-            <label for="validationDefault04">State</label>
-            <input type="text" class="form-control" id="validationDefault04" placeholder="State" required>
-        </div>
-        <div class="col-md-3 mb-3">
-            <label for="validationDefault05">Zip</label>
-            <input type="text" class="form-control" id="validationDefault05" placeholder="Zip" required>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
-            <label class="form-check-label" for="invalidCheck2">
-                Agree to terms and conditions
-            </label>
-        </div>
-    </div>
-    <button class="btn btn-primary" type="submit">Submit form</button>
-</form>
+</div>

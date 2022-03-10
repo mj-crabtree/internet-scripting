@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ChinookContext;
@@ -9,5 +10,6 @@ namespace ChinookService.AlbumService
     {
         public IList<Album> GetAlbums();
         public Album GetAlbum(int id);
+        public string GetAlbumGenre(int id);
     }
 }

@@ -26,14 +26,14 @@ namespace ChinookEntities
         public string Name { get; set; }
         public long? AlbumId { get; set; }
         public long MediaTypeId { get; set; }
-        public long? GenreId { get; set; }
+        public long GenreId { get; set; }
         [Column(TypeName = "NVARCHAR(220)")]
         public string Composer { get; set; }
         public long Milliseconds { get; set; }
-        public long? Bytes { get; set; }
+        public long Bytes { get; set; }
         [Required]
         [Column(TypeName = "NUMERIC(10,2)")]
-        public byte[] UnitPrice { get; set; }
+        public decimal UnitPrice { get; set; }
 
         [ForeignKey(nameof(AlbumId))]
         [InverseProperty("Tracks")]
