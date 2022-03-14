@@ -8,14 +8,15 @@
 <div>
     <h1 class="display-4">Albums</h1>
 </div>
-
+<a href="/Albums/Create" class="btn btn-primary mb-3">Add New Album</a>
 <table class="table">
     <thead>
     <tr>
-        <td>ID</td>
-        <td>Name</td>
-        <td>Artist</td>
-        <td></td>
+        <th scope="col" class="text">ID</th>
+        <th scope="col" class="text">Name</th>
+        <th scope="col" class="text">Artist</th>
+        <th scope="col" class="text">Track Count</th>
+        <th scope="col" class="text-center">Details</th>
     </tr>
     </thead>
     @foreach (var album in Model.Albums)
@@ -24,7 +25,8 @@
             <td>@album.AlbumId</td>
             <td>@album.Title</td>
             <td>@album.Artist.Name</td>
-            <td><a asp-page="details" asp-route-AlbumId="@album.AlbumId" class="btn btn-outline-info">Details</a></td>
+            <td>@album.Tracks.Count</td>
+            <td class="text-center btn-btn-light"><a asp-page="details" asp-route-AlbumId="@album.AlbumId"><i class="bi bi-search"></i></a></td>
         </tr>
     }
 </table>

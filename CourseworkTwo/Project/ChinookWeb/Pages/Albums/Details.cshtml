@@ -37,20 +37,8 @@
                     <input type="text" class="form-control" id="albumArtist" placeholder="Album Artist" value="@Model.Album.Artist.Name" required>
                 </div>
                 <div class="mb-3">
-                    <label for="albumGenre">Genre</label>
+                    <label for="albumGenre">Album Genre</label>
                     <input type="text" class="form-control" id="albumGenre" placeholder="Genre" value="@Model.AlbumGenre" required>
-                </div>
-                <div class="mb-3">
-                    <label for="validationDefault03">Composer</label>
-                    <input type="text" class="form-control" id="validationDefault03" placeholder="City" required>
-                </div>
-                <div class="mb-3">
-                    <label for="validationDefault04">State</label>
-                    <input type="text" class="form-control" id="validationDefault04" placeholder="State" required>
-                </div>
-                <div class="mb-3">
-                    <label for="validationDefault05">Zip</label>
-                    <input type="text" class="form-control" id="validationDefault05" placeholder="Zip" required>
                 </div>
                 <div class="mb-3">
                     <div class="form-group">
@@ -58,7 +46,6 @@
                             <button type="button" class="btn btn-outline-secondary">Cancel</button>
                             <button type="button" class="btn btn-outline-secondary text-primary">Save Changes</button>
                             <button type="button" class="btn btn-outline-secondary text-danger">Delete Album</button>
-                            
                         </div>
                     </div>
                 </div>
@@ -76,6 +63,7 @@
                     <th scope="col" class="text-right">Length</th>
                     <th scope="col" class="text-right">Size (MB)</th>
                     <th scope="col" class="text-right">Price</th>
+                    <th scope="col" class="text-center">Edit</th>
                 </tr>
                 </thead>
                 @foreach (var track in Model.Album.Tracks)
@@ -83,14 +71,38 @@
                     <tr>
                         <td>@_trackNumber</td>
                         <td>@track.Name</td>
-                        <td>@(track.Composer == null ? "N/A" : track.Composer)</td>
+                        <td>@(track.Composer ?? "N/A")</td>
                         <td class="text-right">@TrackLengthInSeconds(track)</td>
                         <td class="text-right">@ConvertBytesToMegabytes(track.Bytes).ToString("0.00")</td>
                         <td class="text-right">£@track.UnitPrice</td>
+                        <td class="text-right"><button class="btn btn-light" aria-label="Edit"><i class="bi bi-pencil-fill"></i></button></td>
                     </tr>
                     _trackNumber = _trackNumber + 1;
                 }
             </table>
+        </div>
+    </div>
+</div>
+
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
         </div>
     </div>
 </div>

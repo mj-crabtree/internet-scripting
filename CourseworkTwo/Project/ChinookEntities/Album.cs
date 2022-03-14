@@ -16,6 +16,14 @@ namespace ChinookEntities
             Tracks = new HashSet<Track>();
         }
 
+        public Album(string title, long artistId, Artist artist, ICollection<Track> tracks)
+        {
+            Title = title;
+            ArtistId = artistId;
+            Artist = artist;
+            Tracks = tracks;
+        }
+
         [Key]
         public long AlbumId { get; set; }
         [Required]
