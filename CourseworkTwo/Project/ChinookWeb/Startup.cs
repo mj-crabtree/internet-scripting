@@ -2,6 +2,8 @@ using System.IO;
 using ChinookContext;
 using ChinookService.AlbumService;
 using ChinookService.ArtistService;
+using ChinookService.GenreService;
+using ChinookService.MediaTypeService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +32,9 @@ namespace ChinookWeb
             services.AddRazorPages();
             services.AddScoped<IAlbumService, AlbumService>();
             services.AddScoped<IArtistService, ArtistService>();
+            services.AddScoped<IGenreService, GenreService>();
+            services.AddScoped<IMediaTypeService, MediaTypeService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

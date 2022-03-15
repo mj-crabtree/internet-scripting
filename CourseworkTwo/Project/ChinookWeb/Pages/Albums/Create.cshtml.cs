@@ -14,7 +14,7 @@ namespace ChinookWeb.Pages.Albums
         {
             ViewData["PageTitle"] = "New Album";
          
-        }
+        } 
 
         public IActionResult OnPost()
         {

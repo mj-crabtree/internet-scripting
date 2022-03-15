@@ -75,34 +75,108 @@
                         <td class="text-right">@TrackLengthInSeconds(track)</td>
                         <td class="text-right">@ConvertBytesToMegabytes(track.Bytes).ToString("0.00")</td>
                         <td class="text-right">£@track.UnitPrice</td>
-                        <td class="text-right"><button class="btn btn-light" aria-label="Edit"><i class="bi bi-pencil-fill"></i></button></td>
+                        <td class="text-right">
+                            <button class="btn btn-light" aria-label="Edit">
+                                <i class="bi bi-pencil-fill"></i>
+                            </button>
+                        </td>
                     </tr>
                     _trackNumber = _trackNumber + 1;
                 }
             </table>
+            <hr>
+            <button class="btn btn-outline-secondary float-right" aria-label="New Track" title="Add New Track" data-toggle="modal" data-target="#newTrackModal">Add Track</button>
         </div>
     </div>
 </div>
 
-<!-- Button trigger modal -->
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- New Track Modal -->
+<div class="modal fade" id="newTrackModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="newTrackModalTitle">New Track</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true"></span>
                 </button>
             </div>
             <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <form>
+                    <div class="mb-3">
+                        <label for="trackTitle">Name</label>
+                        <input type="text" class="form-control" id="trackTitle" placeholder="Track Title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="trackArtist">Artist</label>
+                        <input type="text" class="form-control" id="trackArtist" placeholder="Album Title" value="@Model.Album.Artist.Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="trackComposer">Composer</label>
+                        <input type="text" class="form-control" id="trackComposer" placeholder="e.g. Wynton Marsalis" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="trackGenre">Genre</label>
+                        <select class="custom-select" name="genreSelect" id="trackGenre">
+                            @foreach (var genre in Model.Genres)
+                            {
+                                <option value="@genre.GenreId">@genre.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-3" id="trackLength">
+                            <label for="trackLengthMinutes">Minutes</label>
+                            <input type="number" min="0" max="59" class="form-control" id="trackLengthMinutes" required>
+                        </div>
+                        <div class="col-3">
+                            <label for="trackLengthSeconds">Seconds</label>
+                            <input type="number" min="0" max="59" class="form-control" id="trackLengthSeconds" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="trackMediaType">Track Media Type</label>
+                        <select class="custom-select" name="genreSelect" id="trackMediaType">
+                            @foreach (var mediaType in Model.MediaTypes)
+                            {
+                                <option value="@mediaType.MediaTypeId">@mediaType.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="trackSize">Track Size (MB)</label>
+                        <input type="number" min="0" max="255" class="form-control" id="trackSize" placeholder="3.14" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="trackPrice">Price</label>
+                        <input type="number" min="0" max="2" class="form-control" id="trackPrice" placeholder="0.99" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary">Add Track</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
+@* <!-- Track Details Modal --> *@
+@* <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"> *@
+@*     <div class="modal-dialog" role="document"> *@
+@*         <div class="modal-content"> *@
+@*             <div class="modal-header"> *@
+@*                 <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> *@
+@*                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"> *@
+@*                     <span aria-hidden="true">&times;</span> *@
+@*                 </button> *@
+@*             </div> *@
+@*             <div class="modal-body"> *@
+@*                 ... *@
+@*             </div> *@
+@*             <div class="modal-footer"> *@
+@*                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> *@
+@*                 <button type="button" class="btn btn-primary">Save changes</button> *@
+@*             </div> *@
+@*         </div> *@
+@*     </div> *@
+@* </div> *@
