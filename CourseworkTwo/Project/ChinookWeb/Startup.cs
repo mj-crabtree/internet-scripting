@@ -4,6 +4,7 @@ using ChinookService.AlbumService;
 using ChinookService.ArtistService;
 using ChinookService.GenreService;
 using ChinookService.MediaTypeService;
+using ChinookService.TrackService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -28,13 +29,13 @@ namespace ChinookWeb
             var dbPath = Path.Combine("../..", "chinook.db");
             services.AddDbContext<ApplicationContext>(
                 options => options.UseSqlite($"Data Source={dbPath}"));
-
+            
             services.AddRazorPages();
             services.AddScoped<IAlbumService, AlbumService>();
             services.AddScoped<IArtistService, ArtistService>();
             services.AddScoped<IGenreService, GenreService>();
             services.AddScoped<IMediaTypeService, MediaTypeService>();
-
+            services.AddScoped<ITrackService, TrackService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

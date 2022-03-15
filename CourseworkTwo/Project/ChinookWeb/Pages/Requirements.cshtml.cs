@@ -6,7 +6,7 @@ namespace ChinookWeb.Pages
     {
         public void OnGet()
         {
-            
+
         }
     }
 }

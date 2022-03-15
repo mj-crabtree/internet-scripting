@@ -6,7 +6,7 @@ namespace ChinookWeb.Pages.Artists
     {
         public void OnGet()
         {
-            
+
         }
     }
 }

@@ -6,21 +6,21 @@ using Microsoft.Extensions.Logging;
 
 namespace ChinookWeb.Pages.Albums
 {
-public class AlbumsListViewModel : PageModel
-{
-    private IAlbumService _albumService;
-    public IList<Album> Albums { get; set; }
-    private readonly ILogger<AlbumsListViewModel> _logger;
-
-    public AlbumsListViewModel(IAlbumService albumService, ILogger<AlbumsListViewModel> logger)
+    public class AlbumsListViewModel : PageModel
     {
-        _albumService = albumService;
-        _logger = logger;
-    }
+        private IAlbumService _albumService;
+        public IList<Album> Albums { get; set; }
+        private readonly ILogger<AlbumsListViewModel> _logger;
 
-    public void OnGet()
-    {
-        Albums = _albumService.GetAlbums();
+        public AlbumsListViewModel(IAlbumService albumService, ILogger<AlbumsListViewModel> logger)
+        {
+            _albumService = albumService;
+            _logger = logger;
+        }
+
+        public void OnGet()
+        {
+            Albums = _albumService.GetAlbums();
+        }
     }
-}
 }
