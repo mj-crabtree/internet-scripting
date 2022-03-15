@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using ChinookEntities;
+using ChinookEntities.BindingModels;
 using ChinookService.AlbumService;
 using ChinookService.ArtistService;
 using ChinookService.GenreService;
@@ -35,11 +36,18 @@ namespace ChinookWeb.Pages.Albums
 
         public void OnGet()
         {
+            // todo: convert all this into a single container?
+            
             Album = _albumService.GetAlbum(AlbumId);
             AlbumGenre = _albumService.GetAlbumGenre(AlbumId);
             Genres = _genreService.GetGenres();
             Artists = _artistService.GetArtists();
             MediaTypes = _mediaTypeService.GetMediaTypes();
+        }
+        
+        public void OnPost(TrackBindingModel Track)
+        {
+            
         }
     }
 }

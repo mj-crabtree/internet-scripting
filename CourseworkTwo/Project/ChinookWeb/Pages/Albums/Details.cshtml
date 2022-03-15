@@ -20,73 +20,72 @@
     }
 }
 
-<div class="fluid-container">
-    <h2 class="font-italic">@Model.Album.Artist.Name - @Model.Album.Title</h2>
-    <hr>
-    <div class="row">
-        <div class="col-4">
-            <h4>Album Details</h4>
-            <hr>
-            <form>
-                <div class="mb-3">
-                    <label for="albumTitle">Album Title</label>
-                    <input type="text" class="form-control" id="albumTitle" placeholder="Album Title" value="@Model.Album.Title" required>
-                </div>
-                <div class="mb-3">
-                    <label for="albumArtist">Album Artist</label>
-                    <input type="text" class="form-control" id="albumArtist" placeholder="Album Artist" value="@Model.Album.Artist.Name" required>
-                </div>
-                <div class="mb-3">
-                    <label for="albumGenre">Album Genre</label>
-                    <input type="text" class="form-control" id="albumGenre" placeholder="Genre" value="@Model.AlbumGenre" required>
-                </div>
-                <div class="mb-3">
-                    <div class="form-group">
-                        <div class="btn-group align-bottom" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-outline-secondary">Cancel</button>
-                            <button type="button" class="btn btn-outline-secondary text-primary">Save Changes</button>
-                            <button type="button" class="btn btn-outline-secondary text-danger">Delete Album</button>
-                        </div>
+
+<h2 class="font-italic">@Model.Album.Artist.Name - @Model.Album.Title</h2>
+<hr>
+<div class="row">
+    <div class="col-4">
+        <h4>Album Details</h4>
+        <hr>
+        <form>
+            <div class="mb-3">
+                <label for="albumTitle">Album Title</label>
+                <input type="text" class="form-control" id="albumTitle" placeholder="Album Title" value="@Model.Album.Title" required>
+            </div>
+            <div class="mb-3">
+                <label for="albumArtist">Album Artist</label>
+                <input type="text" class="form-control" id="albumArtist" placeholder="Album Artist" value="@Model.Album.Artist.Name" required>
+            </div>
+            <div class="mb-3">
+                <label for="albumGenre">Album Genre</label>
+                <input type="text" class="form-control" id="albumGenre" placeholder="Genre" value="@Model.AlbumGenre" required>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <div class="btn-group align-bottom" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-outline-secondary">Cancel</button>
+                        <button type="button" class="btn btn-outline-secondary text-primary">Save Changes</button>
+                        <button type="button" class="btn btn-outline-secondary text-danger">Delete Album</button>
                     </div>
                 </div>
-            </form>
-        </div>
-        <div class="col-8">
-            <h4>Tracklist</h4>
-            <hr>
-            <table class="table">
-                <thead class="thead-light">
+            </div>
+        </form>
+    </div>
+    <div class="col-8">
+        <h4>Tracklist</h4>
+        <hr>
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Composer</th>
+                <th scope="col" class="text-right">Length</th>
+                <th scope="col" class="text-right">Size (MB)</th>
+                <th scope="col" class="text-right">Price</th>
+                <th scope="col" class="text-center">Edit</th>
+            </tr>
+            </thead>
+            @foreach (var track in Model.Album.Tracks)
+            {
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Composer</th>
-                    <th scope="col" class="text-right">Length</th>
-                    <th scope="col" class="text-right">Size (MB)</th>
-                    <th scope="col" class="text-right">Price</th>
-                    <th scope="col" class="text-center">Edit</th>
+                    <td>@_trackNumber</td>
+                    <td>@track.Name</td>
+                    <td>@(track.Composer ?? "N/A")</td>
+                    <td class="text-right">@TrackLengthInSeconds(track)</td>
+                    <td class="text-right">@ConvertBytesToMegabytes(track.Bytes).ToString("0.00")</td>
+                    <td class="text-right">£@track.UnitPrice</td>
+                    <td class="text-right">
+                        <button class="btn btn-light" aria-label="Edit">
+                            <i class="bi bi-pencil-fill"></i>
+                        </button>
+                    </td>
                 </tr>
-                </thead>
-                @foreach (var track in Model.Album.Tracks)
-                {
-                    <tr>
-                        <td>@_trackNumber</td>
-                        <td>@track.Name</td>
-                        <td>@(track.Composer ?? "N/A")</td>
-                        <td class="text-right">@TrackLengthInSeconds(track)</td>
-                        <td class="text-right">@ConvertBytesToMegabytes(track.Bytes).ToString("0.00")</td>
-                        <td class="text-right">£@track.UnitPrice</td>
-                        <td class="text-right">
-                            <button class="btn btn-light" aria-label="Edit">
-                                <i class="bi bi-pencil-fill"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    _trackNumber = _trackNumber + 1;
-                }
-            </table>
-            <hr>
-            <button class="btn btn-outline-secondary float-right" aria-label="New Track" title="Add New Track" data-toggle="modal" data-target="#newTrackModal">Add Track</button>
-        </div>
+                _trackNumber = _trackNumber + 1;
+            }
+        </table>
+        <hr>
+        <button class="btn btn-outline-secondary float-right" aria-label="New Track" title="Add New Track" data-toggle="modal" data-target="#newTrackModal">Add Track</button>
     </div>
 </div>
 
@@ -101,22 +100,23 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form method="post">
                     <div class="mb-3">
-                        <label for="trackTitle">Name</label>
-                        <input type="text" class="form-control" id="trackTitle" placeholder="Track Title" required>
+                        <label for="TrackName">Name</label>
+                        <input type="text" class="form-control" id="TrackName" placeholder="Track Title" name="Track.TrackName" required>
                     </div>
                     <div class="mb-3">
                         <label for="trackArtist">Artist</label>
-                        <input type="text" class="form-control" id="trackArtist" placeholder="Album Title" value="@Model.Album.Artist.Name" required>
+                        <input type="text" class="form-control disabled" id="trackArtist" placeholder="@Model.Album.Artist.Name" name="Track.ArtistName" readonly>
+                        <input type="hidden" value="@Model.Album.Artist.ArtistId" id="ArtistId" name="Track.ArtistId">
                     </div>
                     <div class="mb-3">
-                        <label for="trackComposer">Composer</label>
-                        <input type="text" class="form-control" id="trackComposer" placeholder="e.g. Wynton Marsalis" required>
+                        <label for="TrackComposer">Composer</label>
+                        <input type="text" class="form-control" id="TrackComposer" placeholder="e.g. Wynton Marsalis" name="Track.TrackComposer" required>
                     </div>
                     <div class="mb-3">
-                        <label for="trackGenre">Genre</label>
-                        <select class="custom-select" name="genreSelect" id="trackGenre">
+                        <label for="GenreId">Genre</label>
+                        <select class="custom-select" name="Track.GenreId" id="GenreId">
                             @foreach (var genre in Model.Genres)
                             {
                                 <option value="@genre.GenreId">@genre.Name</option>
@@ -125,17 +125,17 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-3" id="trackLength">
-                            <label for="trackLengthMinutes">Minutes</label>
-                            <input type="number" min="0" max="59" class="form-control" id="trackLengthMinutes" required>
+                            <label for="LengthMinutes">Minutes</label>
+                            <input type="number" min="0" max="59" class="form-control" id="LengthMinutes" name="Track.LengthMinutes" required>
                         </div>
                         <div class="col-3">
-                            <label for="trackLengthSeconds">Seconds</label>
-                            <input type="number" min="0" max="59" class="form-control" id="trackLengthSeconds" required>
+                            <label for="LengthSeconds">Seconds</label>
+                            <input type="number" min="0" max="59" class="form-control" id="LengthSeconds" name="Track.LengthSeconds" required>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="trackMediaType">Track Media Type</label>
-                        <select class="custom-select" name="genreSelect" id="trackMediaType">
+                        <label for="MediaTypeId">Track Media Type</label>
+                        <select class="custom-select" name="Track.MediaTypeId" id="MediaTypeId">
                             @foreach (var mediaType in Model.MediaTypes)
                             {
                                 <option value="@mediaType.MediaTypeId">@mediaType.Name</option>
@@ -143,16 +143,19 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="trackSize">Track Size (MB)</label>
-                        <input type="number" min="0" max="255" class="form-control" id="trackSize" placeholder="3.14" required>
+                        <label for="SizeInMegabytes">Track Size (MB)</label>
+                        <input type="number" min="0" max="255" class="form-control" id="SizeInMegabytes" placeholder="3.14" name="Track.SizeInMegabytes" required>
                     </div>
                     <div class="mb-3">
-                        <label for="trackPrice">Price</label>
-                        <input type="number" min="0" max="2" class="form-control" id="trackPrice" placeholder="0.99" required>
+                        <label for="Price">Price</label>
+                        <input type="number" min="0" max="2" class="form-control" id="Price" placeholder="0.99" name="Track.Price" required>
+                    </div>
+                    <div>
+                        <input type="hidden" value="@Model.Album.AlbumId" name="Track.AlbumId">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary">Add Track</button>
+                        <button type="submit" class="btn btn-primary">Add Track</button>
                     </div>
                 </form>
             </div>
