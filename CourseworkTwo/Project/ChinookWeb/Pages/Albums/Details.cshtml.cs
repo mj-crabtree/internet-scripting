@@ -53,7 +53,7 @@ namespace ChinookWeb.Pages.Albums
         {
             var newTrack = _trackService.MakeNewTrack(Track);
             _trackService.Save(newTrack);
-            return RedirectToPage("details");
+            return RedirectToPage();
         }
         
         public IActionResult OnPostEditAlbumDetails(AlbumBindingModel Album)
@@ -65,6 +65,12 @@ namespace ChinookWeb.Pages.Albums
         public IActionResult OnPostEditTrackDetails(TrackBindingModel ExistingTrack)
         {
             throw new NotImplementedException();
+        }
+
+        public IActionResult OnPostDeleteAlbum(int albumId)
+        {
+            _albumService.DeleteAlbum(albumId);
+            return RedirectToPage("/Index");
         }
     }
 }

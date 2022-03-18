@@ -37,12 +37,11 @@
                 </button>
             </td>
             <td class="text-center">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-@album.AlbumId">
+                <button type="button" class="btn btn-outline text-danger" data-toggle="modal" data-target="#deleteAlbumModal-@album.AlbumId">
                     <i class="bi bi-trash"></i>
                 </button>
             </td>
-
-            <div class="modal fade" id="exampleModal-@album.AlbumId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="deleteAlbumModal-@album.AlbumId" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
