@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using ChinookEntities;
 using ChinookService.AlbumService;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
@@ -21,6 +24,13 @@ namespace ChinookWeb.Pages.Albums
         public void OnGet()
         {
             Albums = _albumService.GetAlbums();
+        }
+        
+        public IActionResult OnPostDeleteAlbum(int albumId)
+        {
+            _albumService.DeleteAlbum(albumId);
+            Console.WriteLine("Hello World" + albumId);
+            return RedirectToPage();
         }
     }
 }

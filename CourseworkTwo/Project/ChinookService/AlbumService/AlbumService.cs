@@ -72,5 +72,12 @@ namespace ChinookService.AlbumService
             newAlbum.Tracks = albumBindingModel.Tracks;
             return newAlbum;
         }
+
+        public void DeleteAlbum(int albumId)
+        {
+            var album = GetAlbum(albumId);
+            _applicationContext.Albums.Remove(album);
+            _applicationContext.SaveChanges();
+        }
     }
 }

@@ -40,6 +40,8 @@ namespace ChinookWeb.Pages.Albums
 
         public void OnGet()
         {
+            System.Diagnostics.Debug.WriteLine("Hello World");
+
             Album = _albumService.GetAlbum(AlbumId);
             AlbumGenre = _albumService.GetAlbumGenre(AlbumId);
             Genres = _genreService.GetGenres();
@@ -57,7 +59,7 @@ namespace ChinookWeb.Pages.Albums
         public IActionResult OnPostEditAlbumDetails(AlbumBindingModel Album)
         {
             _albumService.EditAlbum(Album, AlbumId);
-            return RedirectToPage("details");
+            return RedirectToPage();
         }
         
         public IActionResult OnPostEditTrackDetails(TrackBindingModel ExistingTrack)

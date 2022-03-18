@@ -16,5 +16,6 @@ namespace ChinookService.AlbumService
         public void Save(AlbumBindingModel albumBindingModel);
         public void EditAlbum(AlbumBindingModel newAlbumData, int albumId);
         public Album BuildNewAlbum(AlbumBindingModel albumBindingModel);
+        void DeleteAlbum(int albumId);
     }
 }
