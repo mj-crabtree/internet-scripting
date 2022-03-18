@@ -15,8 +15,8 @@
         <th scope="col" class="text">ID</th>
         <th scope="col" class="text">Name</th>
         <th scope="col" class="text">Artist</th>
-        <th scope="col" class="text">Track Count</th>
         <th scope="col" class="text-center">Details</th>
+        <th scope="col" class="text-center">Delete</th>
     </tr>
     </thead>
     @foreach (var album in Model.Albums)
@@ -25,8 +25,8 @@
             <td>@album.AlbumId</td>
             <td>@album.Title</td>
             <td>@album.Artist.Name</td>
-            <td>@album.Tracks.Count</td>
-            <td class="text-center btn-btn-light"><a asp-page="details" asp-route-AlbumId="@album.AlbumId"><i class="bi bi-search"></i></a></td>
+            <td class="text-center btn-outline"><a href="details/@album.AlbumId"><i class="bi bi-search"></i></a></td>
+            <td class="text-center btn-outline"><a href="delete/@album.AlbumId"><i class="bi bi-trash text-danger"></i></a></td>
         </tr>
     }
 </table>

@@ -13,7 +13,8 @@ namespace ChinookService.AlbumService
         public IList<Album> GetAlbums();
         public Album GetAlbum(int id);
         public string GetAlbumGenre(int id);
-        public void SaveAlbum(AlbumBindingModel albumBindingModel);
+        public void Save(AlbumBindingModel albumBindingModel);
+        public void EditAlbum(AlbumBindingModel newAlbumData, int albumId);
         public Album BuildNewAlbum(AlbumBindingModel albumBindingModel);
     }
 }

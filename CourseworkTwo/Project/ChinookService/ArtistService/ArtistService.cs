@@ -17,7 +17,9 @@ namespace ChinookService.ArtistService
 
         public IList<Artist> GetArtists()
         {
-            return _applicationContext.Artists.ToList();
+            return _applicationContext.Artists
+                .OrderBy(a => a.Name)
+                .ToList();
         }
 
         public Artist GetArtist(long artistId)

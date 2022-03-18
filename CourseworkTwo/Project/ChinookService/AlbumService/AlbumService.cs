@@ -50,9 +50,17 @@ namespace ChinookService.AlbumService
             }
         }
 
-        public void SaveAlbum(AlbumBindingModel albumBindingModel)
+        public void Save(AlbumBindingModel albumBindingModel)
         {
             _applicationContext.Albums.Add(BuildNewAlbum(albumBindingModel));
+            _applicationContext.SaveChanges();
+        }
+
+        public void EditAlbum(AlbumBindingModel newAlbumData, int albumId)
+        {
+            var pulled = GetAlbum(albumId);
+            pulled.ArtistId = newAlbumData.ArtistId;
+            pulled.Title = newAlbumData.Title;
             _applicationContext.SaveChanges();
         }
 

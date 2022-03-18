@@ -1,4 +1,4 @@
-@page
+@page "{AlbumId:int}"
 @using ChinookEntities
 @model ChinookWeb.Pages.Albums.Details
 
@@ -27,24 +27,26 @@
     <div class="col-4">
         <h4>Album Details</h4>
         <hr>
-        <form>
+        <form asp-page-handler="EditAlbumDetails" method="post">
             <div class="mb-3">
                 <label for="albumTitle">Album Title</label>
-                <input type="text" class="form-control" id="albumTitle" placeholder="Album Title" value="@Model.Album.Title" required>
+                <input type="text" class="form-control" id="albumTitle" placeholder="Album Title" name="Album.Title" value="@Model.Album.Title" required>
             </div>
             <div class="mb-3">
                 <label for="albumArtist">Album Artist</label>
-                <input type="text" class="form-control" id="albumArtist" placeholder="Album Artist" value="@Model.Album.Artist.Name" required>
-            </div>
-            <div class="mb-3">
-                <label for="albumGenre">Album Genre</label>
-                <input type="text" class="form-control" id="albumGenre" placeholder="Genre" value="@Model.AlbumGenre" required>
+                <select class="custom-select" name="Album.ArtistId" id="AlbumArtist">
+                    <option selected="@Model.Album.ArtistId" value="@Model.Album.ArtistId">@Model.Album.Artist.Name</option>
+                    @foreach (var artist in @Model.Artists)
+                    {
+                        <option value="@artist.ArtistId">@artist.Name</option>
+                    }
+                </select>
             </div>
             <div class="mb-3">
                 <div class="form-group">
                     <div class="btn-group align-bottom" role="group" aria-label="Basic example">
                         <button type="button" class="btn btn-outline-secondary">Cancel</button>
-                        <button type="button" class="btn btn-outline-secondary text-primary">Save Changes</button>
+                        <button type="submit" class="btn btn-outline-secondary text-primary">Save Changes</button>
                         <button type="button" class="btn btn-outline-secondary text-danger">Delete Album</button>
                     </div>
                 </div>
@@ -100,7 +102,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post">
+                <form asp-page-handler="NewTrack" method="post">
                     <div class="mb-3">
                         <label for="TrackName">Name</label>
                         <input type="text" class="form-control" id="TrackName" placeholder="Track Title" name="Track.TrackName" required>

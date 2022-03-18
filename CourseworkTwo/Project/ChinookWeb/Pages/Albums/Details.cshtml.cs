@@ -40,26 +40,29 @@ namespace ChinookWeb.Pages.Albums
 
         public void OnGet()
         {
-            PopulatePageModel();
-        }
-
-        public IActionResult OnPost(TrackBindingModel Track)
-        {
-            var newTrack = _trackService.MakeNewTrack(Track);
-            _trackService.Save(newTrack);
-
-            PopulatePageModel();
-            
-            return Page();
-        }
-        
-        void PopulatePageModel()
-        {
             Album = _albumService.GetAlbum(AlbumId);
             AlbumGenre = _albumService.GetAlbumGenre(AlbumId);
             Genres = _genreService.GetGenres();
             Artists = _artistService.GetArtists();
             MediaTypes = _mediaTypeService.GetMediaTypes();
+        }
+
+        public IActionResult OnPostNewTrack(TrackBindingModel Track)
+        {
+            var newTrack = _trackService.MakeNewTrack(Track);
+            _trackService.Save(newTrack);
+            return RedirectToPage("details");
+        }
+        
+        public IActionResult OnPostEditAlbumDetails(AlbumBindingModel Album)
+        {
+            _albumService.EditAlbum(Album, AlbumId);
+            return RedirectToPage("details");
+        }
+        
+        public IActionResult OnPostEditTrackDetails(TrackBindingModel ExistingTrack)
+        {
+            throw new NotImplementedException();
         }
     }
 }
