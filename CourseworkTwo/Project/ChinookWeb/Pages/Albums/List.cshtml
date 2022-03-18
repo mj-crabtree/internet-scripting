@@ -5,11 +5,15 @@
     ViewData["Title"] = "Albums";
 }
 
-<div>
-    <h1 class="display-4">Albums</h1>
+<div class="d-flex justify-content-between">
+    <div class="d-flex align-items-center">
+        <h1 class="display-4">Albums</h1>
+    </div>
+    <div class="d-flex align-items-center">
+        <a href="/Albums/Create" class="btn btn-primary float-right">Add New Album</a>
+    </div>
 </div>
-<a href="/Albums/Create" class="btn btn-primary mb-3">Add New Album</a>
-<table class="table">
+<table class="table my-4">
     <thead>
     <tr>
         <th scope="col" class="text">ID</th>
@@ -25,8 +29,16 @@
             <td>@album.AlbumId</td>
             <td>@album.Title</td>
             <td>@album.Artist.Name</td>
-            <td class="text-center btn-outline"><a href="details/@album.AlbumId"><i class="bi bi-search"></i></a></td>
-            <td class="text-center btn-outline"><a href="delete/@album.AlbumId"><i class="bi bi-trash text-danger"></i></a></td>
+            <td class="text-center btn-outline">
+                <a href="details/@album.AlbumId">
+                    <i class="bi bi-search"></i>
+                </a>
+            </td>
+            <td class="text-center btn-outline">
+                <a href="delete/@album.AlbumId">
+                    <i class="bi bi-trash text-danger"></i>
+                </a>
+            </td>
         </tr>
     }
 </table>
