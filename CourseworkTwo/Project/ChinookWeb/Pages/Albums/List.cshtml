@@ -1,5 +1,4 @@
 @page
-@using Microsoft.EntityFrameworkCore.Metadata.Internal
 @model AlbumsListViewModel
 @{
     ViewData["Title"] = "Albums";
@@ -69,7 +68,7 @@
 </table>
 
 @* alternate first, previous, next, last *@
-<div>
+<div class="py-3 float-right">
     <ul class="pagination">
         <li class="page-item @(!Model.ShowFirst? "disabled":"")">
             <a asp-page="/albums/list" asp-route-CurrentPage="1" class="page-link"><i class="bi bi-skip-backward"></i></a>
