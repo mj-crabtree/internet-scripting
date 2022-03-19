@@ -29,6 +29,21 @@ namespace ChinookService.AlbumService
                 .ToList();
         }
 
+        public IList<Album> GetPaginatedAlbums(int currentPage, int pageSize = 10)
+        {
+            var albums = GetAlbums();
+            return albums.OrderBy(a => a.AlbumId)
+                .Skip((currentPage - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+        }
+
+        public int GetCount()
+        {
+            var data = GetAlbums();
+            return GetAlbums().Count;
+        }
+
         public Album GetAlbum(int id)
         {
             return _applicationContext.Albums
