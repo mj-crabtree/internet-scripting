@@ -11,6 +11,8 @@ namespace ChinookService.AlbumService
     public interface IAlbumService
     {
         public IList<Album> GetAlbums();
+        public IList<Album> GetPaginatedAlbums(int currentPage, int pageSize = 10);
+        public int GetCount();
         public Album GetAlbum(int id);
         public string GetAlbumGenre(int id);
         public void Save(AlbumBindingModel albumBindingModel);
