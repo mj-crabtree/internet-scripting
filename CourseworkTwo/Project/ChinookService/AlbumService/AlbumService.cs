@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using ChinookContext;
 using ChinookEntities;
 using ChinookEntities.BindingModels;
@@ -32,7 +33,17 @@ namespace ChinookService.AlbumService
         public IList<Album> GetPaginatedAlbums(int currentPage, int pageSize = 10)
         {
             var albums = GetAlbums();
-            return albums.OrderBy(a => a.AlbumId)
+            return albums.OrderBy(a => a)
+                .Skip((currentPage - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+        }
+
+        public IList<Album> GetPaginatedAlbums(int currentPage, int pageSize, string sortBy)
+        {
+            var albums = GetAlbums();
+            return albums.AsQueryable()
+                .OrderBy(sortBy)
                 .Skip((currentPage - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();

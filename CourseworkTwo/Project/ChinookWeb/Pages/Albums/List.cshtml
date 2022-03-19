@@ -1,4 +1,4 @@
-@page
+@page "{currentPage=1}/{sortby=AlbumId}"
 @model AlbumsListViewModel
 @{
     ViewData["Title"] = "Albums";
@@ -15,11 +15,22 @@
 <table class="table my-4">
     <thead>
     <tr>
-        <th scope="col" class="text">ID</th>
-        <th scope="col" class="text">Name</th>
-        <th scope="col" class="text">Artist</th>
+        <th scope="col" class="text">
+            <a asp-page="/albums/list" class="sort-link" asp-route-sortby="AlbumId">#</a>
+        </th>
+        <th scope="col" class="text">
+            <a asp-page="/albums/list" class="sort-link" asp-route-sortby="Title">Title</a>
+        </th>
+        <th scope="col" class="text">
+            <a asp-page="/albums/list" class="sort-link" asp-route-sortby="Artist.Name">Artist</a>
+        </th>
         <th scope="col" class="text-center">Details</th>
         <th scope="col" class="text-center">Delete</th>
+        @* <th scope="col" class="text">Name</th> *@
+        @* <th scope="col" class="text">ID</th> *@
+        @* <th scope="col" class="text">Artist</th> *@
+        @* <th scope="col" class="text-center">Details</th> *@
+        @* <th scope="col" class="text-center">Delete</th> *@
     </tr>
     </thead>
     @foreach (var album in Model.Albums)
@@ -68,21 +79,56 @@
 </table>
 
 @* alternate first, previous, next, last *@
-<div class="py-3 float-right">
+@* <div class="py-3 float-right"> *@
+@*     <ul class="pagination"> *@
+@*         <li class="page-item @(!Model.ShowFirst ? "disabled" : "")"> *@
+@*             <a asp-page="/albums/list" asp-route-CurrentPage="1" class="page-link"> *@
+@*                 <i class="bi bi-skip-backward"></i> *@
+@*             </a> *@
+@*         </li> *@
+@* *@
+@*         <li class="page-item @(!Model.ShowPrevious ? "disabled" : "")"> *@
+@*             <a asp-page="/albums/list" asp-route-CurrentPage="@(Model.CurrentPage - 1)" class="page-link"> *@
+@*                 <i class="bi bi-arrow-left"></i> *@
+@*             </a> *@
+@*         </li> *@
+@*         <li class="page-item  @(!Model.ShowNext ? "disabled" : "")"> *@
+@*             <a asp-page="/albums/list" asp-route-CurrentPage="@(Model.CurrentPage + 1)" class="page-link"> *@
+@*                 <i class="bi bi-arrow-right"></i> *@
+@*             </a> *@
+@*         </li> *@
+@* *@
+@*         <li class="page-item  @(!Model.ShowLast ? "disabled" : "")"> *@
+@*             <a asp-page="/albums/list" asp-route-CurrentPage="@Model.TotalPages" class="page-link"> *@
+@*                 <i class="bi bi-skip-forward"></i> *@
+@*             </a> *@
+@*         </li> *@
+@*     </ul> *@
+@* </div> *@
+
+<div>
     <ul class="pagination">
-        <li class="page-item @(!Model.ShowFirst? "disabled":"")">
-            <a asp-page="/albums/list" asp-route-CurrentPage="1" class="page-link"><i class="bi bi-skip-backward"></i></a>
+        <li class="page-item @(!Model.ShowFirst? "disabled":"")" title="First">
+            <a asp-page="/albums/list" class="page-link" asp-all-route-data="@(new Dictionary<string, string>{ { "currentpage", "1" },{ "sortby", Model.SortBy }})">
+                <i class="bi bi-skip-backward"></i>
+            </a>
         </li>
 
-        <li class="page-item @(!Model.ShowPrevious? "disabled":"")">
-            <a asp-page="/albums/list" asp-route-CurrentPage="@(Model.CurrentPage -1)" class="page-link"><i class="bi bi-arrow-left"></i></a>
+        <li class="page-item @(!Model.ShowPrevious? "disabled":"")" title="Previous">
+            <a asp-page="/albums/list"  asp-all-route-data="@(new Dictionary<string, string>{{ "currentpage", (Model.CurrentPage -1).ToString() },{ "sortby", Model.SortBy }})" class="page-link">
+                <i class="bi bi-arrow-left"></i>
+            </a>
         </li>
-        <li class="page-item  @(!Model.ShowNext? "disabled":"")">
-            <a asp-page="/albums/list" asp-route-CurrentPage="@(Model.CurrentPage + 1)" class="page-link"><i class="bi bi-arrow-right"></i></a>
+        <li class="page-item  @(!Model.ShowNext? "disabled":"")" title="Next">
+            <a asp-page="/albums/list" asp-all-route-data="@(new Dictionary<string, string>{{ "currentpage", (Model.CurrentPage + 1).ToString() },{ "sortby", Model.SortBy }})" class="page-link">
+                <i class="bi bi-arrow-right"></i>
+            </a>
         </li>
 
-        <li class="page-item  @(!Model.ShowLast? "disabled":"")">
-            <a asp-page="/albums/list" asp-route-CurrentPage="@Model.TotalPages" class="page-link"><i class="bi bi-skip-forward"></i></a>
+        <li class="page-item  @(!Model.ShowLast? "disabled":"")" title="Last">
+            <a asp-page="/albums/list" asp-all-route-data="@(new Dictionary<string, string>{{ "currentpage", Model.TotalPages.ToString() },{ "sortby", Model.SortBy }})" class="page-link">
+                <i class="bi bi-skip-forward"></i>
+            </a>
         </li>
     </ul>
 </div>

@@ -19,6 +19,9 @@ namespace ChinookWeb.Pages.Albums
 
         [BindProperty(SupportsGet = true)]
         public int CurrentPage { get; set; } = 1;
+        
+        [BindProperty(SupportsGet = true)]
+        public string SortBy { get; set; }
         public int Count { get; set; }
         public int PageSize { get; set; } = 10;
 
@@ -30,7 +33,6 @@ namespace ChinookWeb.Pages.Albums
 
         // pagination ends
         
-        
         public AlbumsListViewModel(IAlbumService albumService, ILogger<AlbumsListViewModel> logger)
         {
             _albumService = albumService;
@@ -39,7 +41,7 @@ namespace ChinookWeb.Pages.Albums
 
         public void OnGet()
         {
-            Albums = _albumService.GetPaginatedAlbums(CurrentPage, PageSize);
+            Albums = _albumService.GetPaginatedAlbums(CurrentPage, PageSize, SortBy);
             Count = _albumService.GetCount();
         }
         
