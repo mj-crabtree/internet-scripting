@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using ChinookEntities;
 using ChinookService.AlbumService;
 using Microsoft.AspNetCore.Mvc;
@@ -48,7 +47,6 @@ namespace ChinookWeb.Pages.Albums
         public IActionResult OnPostDeleteAlbum(int albumId)
         {
             _albumService.DeleteAlbum(albumId);
-            Console.WriteLine("Hello World" + albumId);
             return RedirectToPage();
         }
     }
