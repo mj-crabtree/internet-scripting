@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Threading.Tasks;
 using ChinookEntities;
 using ChinookService.AlbumService;
 using Microsoft.AspNetCore.Mvc;
@@ -13,14 +16,13 @@ namespace ChinookWeb.Pages.Albums
         private IAlbumService _albumService;
         public IList<Album> Albums { get; set; }
         private readonly ILogger<AlbumsListViewModel> _logger;
-        
-        // pagination begins
 
         [BindProperty(SupportsGet = true)]
         public int CurrentPage { get; set; } = 1;
-        
+
         [BindProperty(SupportsGet = true)]
         public string SortBy { get; set; }
+
         public int Count { get; set; }
         public int PageSize { get; set; } = 10;
 
@@ -30,8 +32,6 @@ namespace ChinookWeb.Pages.Albums
         public bool ShowFirst => CurrentPage != 1;
         public bool ShowLast => CurrentPage != TotalPages;
 
-        // pagination ends
-        
         public AlbumsListViewModel(IAlbumService albumService, ILogger<AlbumsListViewModel> logger)
         {
             _albumService = albumService;
@@ -43,7 +43,16 @@ namespace ChinookWeb.Pages.Albums
             Albums = _albumService.GetPaginatedAlbums(CurrentPage, PageSize, SortBy);
             Count = _albumService.GetCount();
         }
-        
+
+        public void OnPostAlbumSearch(string searchString)
+        {
+            Albums = _albumService.GetAlbums();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                Albums = Albums.Where(a => a.Title.ToLower().Contains(searchString.ToLower())).ToList();
+            }
+        }
+
         public IActionResult OnPostDeleteAlbum(int albumId)
         {
             _albumService.DeleteAlbum(albumId);
