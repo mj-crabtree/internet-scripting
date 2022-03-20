@@ -102,7 +102,7 @@ namespace ChinookService.AlbumService
             var albums = GetAlbumsByArtistId(artistId);
             foreach (var album in albums)
             {
-                DeleteAlbum((int) album.AlbumId);
+                DeleteAlbum((int)album.AlbumId);
             }
         }
 

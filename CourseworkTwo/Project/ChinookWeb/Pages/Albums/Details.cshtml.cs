@@ -55,13 +55,13 @@ namespace ChinookWeb.Pages.Albums
             _trackService.Save(newTrack);
             return RedirectToPage();
         }
-        
+
         public IActionResult OnPostEditAlbumDetails(AlbumBindingModel Album)
         {
             _albumService.EditAlbum(Album, AlbumId);
             return RedirectToPage();
         }
-        
+
         public IActionResult OnPostEditTrackDetails(TrackBindingModel ExistingTrack)
         {
             throw new NotImplementedException();

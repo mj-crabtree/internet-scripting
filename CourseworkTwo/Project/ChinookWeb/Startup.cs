@@ -29,7 +29,7 @@ namespace ChinookWeb
             var dbPath = Path.Combine("../..", "chinook.db");
             services.AddDbContext<ApplicationContext>(
                 options => options.UseSqlite($"Data Source={dbPath}"));
-            
+
             services.AddRazorPages();
             services.AddScoped<IAlbumService, AlbumService>();
             services.AddScoped<IArtistService, ArtistService>();
