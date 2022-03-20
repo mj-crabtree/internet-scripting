@@ -1,17 +1,13 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using ChinookContext;
 using ChinookEntities;
 using ChinookEntities.BindingModels;
-using ChinookService.ArtistService;
 
 namespace ChinookService.AlbumService
 {
     public interface IAlbumService
     {
         public IList<Album> GetAlbums();
-        public IList<Album> GetPaginatedAlbums(int currentPage, int pageSize = 10);
+        // public IList<Album> GetPaginatedAlbums(int currentPage, int pageSize = 10);
         public IList<Album> GetPaginatedAlbums(int currentPage, int pageSize, string sortBy);
         public int GetCount();
         public Album GetAlbum(int id);

@@ -1,10 +1,11 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using ChinookEntities;
 using ChinookService.ArtistService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 
 namespace ChinookWeb.Pages.Artists
 {
@@ -39,5 +40,15 @@ namespace ChinookWeb.Pages.Artists
             Artists = _artistService.GetPaginatedArtists(CurrentPage, PageSize, SortBy);
             Count = _artistService.GetCount();
         }
+
+        public void OnPostArtistSearch(string searchString)
+        {
+            Artists = _artistService.GetArtists();
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                Artists = Artists.Where(a => a.Name.ToLower().Contains(searchString.ToLower())).ToList();
+            }
+        }
+        
     }
 }

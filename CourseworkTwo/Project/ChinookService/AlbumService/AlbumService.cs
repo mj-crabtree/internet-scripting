@@ -30,14 +30,14 @@ namespace ChinookService.AlbumService
                 .ToList();
         }
 
-        public IList<Album> GetPaginatedAlbums(int currentPage, int pageSize = 10)
-        {
-            var albums = GetAlbums();
-            return albums.OrderBy(a => a)
-                .Skip((currentPage - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
-        }
+        // public IList<Album> GetPaginatedAlbums(int currentPage, int pageSize = 10)
+        // {
+        //     var albums = GetAlbums();
+        //     return albums.OrderBy(a => a)
+        //         .Skip((currentPage - 1) * pageSize)
+        //         .Take(pageSize)
+        //         .ToList();
+        // }
 
         public IList<Album> GetPaginatedAlbums(int currentPage, int pageSize, string sortBy)
         {
