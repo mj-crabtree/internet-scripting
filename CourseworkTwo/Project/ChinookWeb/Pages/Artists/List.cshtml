@@ -1,5 +1,6 @@
 @page "{currentPage=1}/{sortBy=ArtistId}"
-@model ChinookWeb.Pages.Artists.List
+@model ArtistsListViewModel
+
 <div class="d-flex justify-content-between">
     <div class="d-flex align-items-center">
         <h1 class="display-4">Artists</h1>
@@ -15,12 +16,11 @@
         </form>
     </div>
 </div>
-
-@if (!Model.Artists.Any())
+@if (Model.Artists.Count == 0)
 {
     <div class="d-flex justify-content-center py-5">
         <div>
-            <h3 class="display-4 font-italic">album not found</h3>
+            <h3 class="display-4 font-italic">artist not found</h3>
         </div>
     </div>
     <div class="d-flex justify-content-center">

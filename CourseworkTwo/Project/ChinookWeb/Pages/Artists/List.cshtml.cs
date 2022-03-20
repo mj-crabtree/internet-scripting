@@ -7,16 +7,15 @@ using ChinookService.ArtistService;
 using ChinookService.TrackService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 
 namespace ChinookWeb.Pages.Artists
 {
-    public class List : PageModel
+    public class ArtistsListViewModel : PageModel
     {
         private readonly IArtistService _artistService;
         private readonly IAlbumService _albumService;
         private readonly ITrackService _trackService;
-        public IEnumerable<Artist> Artists { get; set; }
+        public IList<Artist> Artists { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public int CurrentPage { get; set; } = 1;
@@ -33,7 +32,7 @@ namespace ChinookWeb.Pages.Artists
         public bool ShowFirst => CurrentPage != 1;
         public bool ShowLast => CurrentPage != TotalPages;
 
-        public List(IArtistService artistService, IAlbumService albumService, ITrackService trackService)
+        public ArtistsListViewModel(IArtistService artistService, IAlbumService albumService, ITrackService trackService)
         {
             _artistService = artistService;
             _albumService = albumService;
@@ -51,7 +50,7 @@ namespace ChinookWeb.Pages.Artists
             Artists = _artistService.GetArtists();
             if (!String.IsNullOrEmpty(searchString))
             {
-                Artists = Artists.Where(a => a.Name.ToLower().Contains(searchString.ToLower())).ToList();
+                Artists = _artistService.SearchArtists(searchString);
             }
         }
 

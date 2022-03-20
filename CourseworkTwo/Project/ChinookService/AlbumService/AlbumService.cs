@@ -7,7 +7,6 @@ using ChinookEntities;
 using ChinookEntities.BindingModels;
 using ChinookService.ArtistService;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
 
 namespace ChinookService.AlbumService
 {
@@ -61,7 +60,7 @@ namespace ChinookService.AlbumService
                 var genreId = GetAlbum(id).Tracks.First().GenreId;
                 return _applicationContext.Genres.First(f => f.GenreId == genreId).Name;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "N/A";
             }
@@ -104,6 +103,13 @@ namespace ChinookService.AlbumService
             {
                 DeleteAlbum((int)album.AlbumId);
             }
+        }
+
+        public IList<Album> SearchAlbums(string searchString)
+        {
+            return _applicationContext.Albums.Where(a => a.Title.ToLower()
+                .Contains(searchString.ToLower()))
+                .ToList();
         }
 
         private IQueryable<Album> GetAlbumsByArtistId(int artistId)

@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Threading.Tasks;
 using ChinookEntities;
 using ChinookService.AlbumService;
 using Microsoft.AspNetCore.Mvc;
@@ -49,7 +47,7 @@ namespace ChinookWeb.Pages.Albums
             Albums = _albumService.GetAlbums();
             if (!string.IsNullOrEmpty(searchString))
             {
-                Albums = Albums.Where(a => a.Title.ToLower().Contains(searchString.ToLower())).ToList();
+                Albums = _albumService.SearchAlbums(searchString);
             }
         }
 

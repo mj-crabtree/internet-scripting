@@ -17,5 +17,6 @@ namespace ChinookService.AlbumService
         public Album BuildNewAlbum(AlbumBindingModel albumBindingModel);
         public void DeleteAlbum(int albumId);
         public void DeleteAlbums(int artistId);
+        IList<Album> SearchAlbums(string searchString);
     }
 }
