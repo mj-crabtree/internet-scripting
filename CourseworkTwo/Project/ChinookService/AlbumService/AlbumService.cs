@@ -6,6 +6,7 @@ using ChinookContext;
 using ChinookEntities;
 using ChinookEntities.BindingModels;
 using ChinookService.ArtistService;
+using ChinookService.TrackService;
 using Microsoft.EntityFrameworkCore;
 
 namespace ChinookService.AlbumService
@@ -14,11 +15,13 @@ namespace ChinookService.AlbumService
     {
         private readonly ApplicationContext _applicationContext;
         private readonly IArtistService _artistService;
+        private readonly ITrackService _trackService;
 
-        public AlbumService(ApplicationContext applicationContext, IArtistService artistService)
+        public AlbumService(ApplicationContext applicationContext, IArtistService artistService, ITrackService trackService)
         {
             _applicationContext = applicationContext;
             _artistService = artistService;
+            _trackService = trackService;
         }
 
         public IList<Album> GetAlbums()

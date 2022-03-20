@@ -57,11 +57,16 @@ namespace ChinookService.ArtistService
                 .ToList();
         }
 
-        public void EditName(int artistId, string newName)
+        public void EditExistingArtistName(int artistId, string newName)
         {
             var pulledArtist = GetArtist(artistId);
             pulledArtist.Name = newName;
             _applicationContext.SaveChanges();
+        }
+
+        public void CreateNewArtist(string artistName)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -63,7 +63,7 @@ namespace ChinookWeb.Pages.Artists
         
         public IActionResult OnPostEditArtistName(int artistId, string newName)
         {
-            _artistService.EditName(artistId, newName);
+            _artistService.EditExistingArtistName(artistId, newName);
             return RedirectToPage();
         }
 
