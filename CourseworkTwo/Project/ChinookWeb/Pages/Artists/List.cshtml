@@ -1,25 +1,106 @@
 @page
-@using Microsoft.AspNetCore.Server.Kestrel.Core
-@using Microsoft.EntityFrameworkCore.Metadata.Internal
 @model ChinookWeb.Pages.Artists.List
-<div>
-    <h1 class="display-4">Artists</h1>
+<div class="d-flex justify-content-between">
+    <div class="d-flex align-items-center">
+        <h1 class="display-4">Artists</h1>
+    </div>
+    <div class="d-flex align-items-center">
+        <form asp-page-handler="ArtistSearch" method="post" class="form-inline my-2 my-md-0">
+            <div class="input-group">
+                <input class="form-control" type="text" placeholder="Artist Search" aria-label="Search" name="searchString">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
-<a href="/Artists/Create" class="btn btn-primary mb-3">Add New Artist</a>
-<table class="table">
+<table class="table my-4">
     <thead>
-    <td>ID</td>
-    <td>Artist Name</td>
-    <td>Album Count</td>
-    <td></td>
+    <tr>
+        <th scope="col" class="text">
+            <a asp-page="/artists/list" class="sort-link" asp-route-sortby="ArtistId">#</a>
+        </th>
+        <th scope="col" class="text">
+            <a asp-page="/artists/list" class="sort-link" asp-route-sortby="Name">Name</a>
+        </th>
+        <th scope="col"class="text-center">Edit</th>
+        <th scope="col"class="text-center">Delete</th>
+    </tr>
     </thead>
     @foreach (var artist in Model.Artists)
     {
         <tr>
             <td>@artist.ArtistId</td>
             <td>@artist.Name</td>
-            <td>@artist.Albums.Count</td>
-            <td><a asp-page="details" asp-route-ArtistId="@artist.ArtistId" class="btn btn-outline-info">Details</a></td>
+            <td class="text-center">
+                <button class="btn btn-outline">
+                    <a href="details/@artist.ArtistId">
+                        <i class="bi bi-pencil"></i>
+                    </a>
+                </button>
+            </td>
+            <td class="text-center">
+                <button type="button" class="btn btn-outline text-danger" data-toggle="modal" data-target="#deleteAlbumModal-@artist.ArtistId">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </td>
+            <div class="modal fade" id="deleteAlbumModal-@artist.ArtistId" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalTitle">Deletion Confirmation</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to delete the artist <b>@artist.Name</b>?</p>
+                        </div>
+                        <form asp-page-handler="DeleteArtist" method="post">
+                            <input type="hidden" value="@artist.ArtistId" name="artistId">
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <input type="hidden" value="@artist.ArtistId" name="artistId">
+                                <button class="btn btn-danger" type="submit" asp-page-handler="DeleteArtist">Delete Artist</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </tr>
     }
 </table>
+<div class="row">
+    <div class="col-6">
+        <div>
+            <ul class="pagination">
+                <li class="page-item @(!Model.ShowFirst ? "disabled" : "")" title="First">
+                    <a asp-page="/albums/list" class="page-link" asp-all-route-data="@(new Dictionary<string, string> {{"currentpage", "1"}, {"sortby", Model.SortBy}})">
+                        <i class="bi bi-skip-backward"></i>
+                    </a>
+                </li>
+
+                <li class="page-item @(!Model.ShowPrevious ? "disabled" : "")" title="Previous">
+                    <a asp-page="/albums/list" asp-all-route-data="@(new Dictionary<string, string> {{"currentpage", (Model.CurrentPage - 1).ToString()}, {"sortby", Model.SortBy}})" class="page-link">
+                        <i class="bi bi-arrow-left"></i>
+                    </a>
+                </li>
+                <li class="page-item  @(!Model.ShowNext ? "disabled" : "")" title="Next">
+                    <a asp-page="/albums/list" asp-all-route-data="@(new Dictionary<string, string> {{"currentpage", (Model.CurrentPage + 1).ToString()}, {"sortby", Model.SortBy}})" class="page-link">
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                </li>
+
+                <li class="page-item  @(!Model.ShowLast ? "disabled" : "")" title="Last">
+                    <a asp-page="/albums/list" asp-all-route-data="@(new Dictionary<string, string> {{"currentpage", Model.TotalPages.ToString()}, {"sortby", Model.SortBy}})" class="page-link">
+                        <i class="bi bi-skip-forward"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-6">
+        <a href="/Albums/Create" class="btn btn-primary float-right">Add New Album</a>
+    </div>
+</div>

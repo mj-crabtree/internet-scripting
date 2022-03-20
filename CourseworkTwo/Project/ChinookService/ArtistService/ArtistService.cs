@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ChinookContext;
 using ChinookEntities;
-using Microsoft.EntityFrameworkCore;
 
 namespace ChinookService.ArtistService
 {
@@ -18,7 +17,7 @@ namespace ChinookService.ArtistService
         public IList<Artist> GetArtists()
         {
             return _applicationContext.Artists
-                .OrderBy(a => a.Name)
+                .OrderBy(a => a.ArtistId)
                 .ToList();
         }
 
