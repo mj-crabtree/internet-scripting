@@ -60,6 +60,12 @@ namespace ChinookWeb.Pages.Artists
             _artistService.DeleteArtist(artistId);
             return RedirectToPage();
         }
+        
+        public IActionResult OnPostEditArtistName(int artistId, string newName)
+        {
+            _artistService.EditName(artistId, newName);
+            return RedirectToPage();
+        }
 
     }
 }

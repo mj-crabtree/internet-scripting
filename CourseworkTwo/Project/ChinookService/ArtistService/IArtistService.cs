@@ -11,5 +11,6 @@ namespace ChinookService.ArtistService
         public int GetCount();
         void DeleteArtist(int artistId);
         IList<Artist> SearchArtists(string searchString);
+        void EditName(int artistId, string newName);
     }
 }
