@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using ChinookContext;
 using ChinookEntities;
 
@@ -24,6 +25,22 @@ namespace ChinookService.ArtistService
         public Artist GetArtist(long artistId)
         {
             return _applicationContext.Artists.First(a => a.ArtistId == artistId);
+        }
+
+        public IList<Artist> GetPaginatedArtists(int currentPage, int pageSize, string sortBy)
+        {
+            var artists = GetArtists();
+            return artists.AsQueryable()
+                .OrderBy(sortBy)
+                .Skip((currentPage - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+        }
+
+        public int GetCount()
+        {
+            var artists = GetArtists();
+            return artists.Count;
         }
     }
 }

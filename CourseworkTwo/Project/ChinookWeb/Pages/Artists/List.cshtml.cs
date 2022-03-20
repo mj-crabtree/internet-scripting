@@ -36,7 +36,8 @@ namespace ChinookWeb.Pages.Artists
         public void OnGet()
         {
             ViewData["PageTitle"] = "Artists";
-            Artists = _artistService.GetArtists();
+            Artists = _artistService.GetPaginatedArtists(CurrentPage, PageSize, SortBy);
+            Count = _artistService.GetCount();
         }
     }
 }
