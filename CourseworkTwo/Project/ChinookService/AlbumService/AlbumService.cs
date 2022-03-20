@@ -30,15 +30,6 @@ namespace ChinookService.AlbumService
                 .ToList();
         }
 
-        // public IList<Album> GetPaginatedAlbums(int currentPage, int pageSize = 10)
-        // {
-        //     var albums = GetAlbums();
-        //     return albums.OrderBy(a => a)
-        //         .Skip((currentPage - 1) * pageSize)
-        //         .Take(pageSize)
-        //         .ToList();
-        // }
-
         public IList<Album> GetPaginatedAlbums(int currentPage, int pageSize, string sortBy)
         {
             var albums = GetAlbums();
@@ -104,6 +95,20 @@ namespace ChinookService.AlbumService
             var album = GetAlbum(albumId);
             _applicationContext.Albums.Remove(album);
             _applicationContext.SaveChanges();
+        }
+
+        public void DeleteAlbums(int artistId)
+        {
+            var albums = GetAlbumsByArtistId(artistId);
+            foreach (var album in albums)
+            {
+                DeleteAlbum((int) album.AlbumId);
+            }
+        }
+
+        private IQueryable<Album> GetAlbumsByArtistId(int artistId)
+        {
+            return _applicationContext.Albums.Where(a => a.ArtistId.Equals(artistId));
         }
     }
 }

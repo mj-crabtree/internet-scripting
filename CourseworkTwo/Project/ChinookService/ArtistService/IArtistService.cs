@@ -9,5 +9,6 @@ namespace ChinookService.ArtistService
         public Artist GetArtist(long artistId);
         public IList<Artist> GetPaginatedArtists(int currentPage, int pageSize, string sortBy);
         public int GetCount();
+        void DeleteArtist(int artistId);
     }
 }

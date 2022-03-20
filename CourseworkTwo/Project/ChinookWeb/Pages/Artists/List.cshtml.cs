@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ChinookEntities;
+using ChinookService.AlbumService;
 using ChinookService.ArtistService;
+using ChinookService.TrackService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
@@ -11,7 +13,9 @@ namespace ChinookWeb.Pages.Artists
 {
     public class List : PageModel
     {
-        private IArtistService _artistService;
+        private readonly IArtistService _artistService;
+        private readonly IAlbumService _albumService;
+        private readonly ITrackService _trackService;
         public IEnumerable<Artist> Artists { get; set; }
 
         [BindProperty(SupportsGet = true)]
@@ -29,14 +33,15 @@ namespace ChinookWeb.Pages.Artists
         public bool ShowFirst => CurrentPage != 1;
         public bool ShowLast => CurrentPage != TotalPages;
         
-        public List(IArtistService artistService)
+        public List(IArtistService artistService, IAlbumService albumService, ITrackService trackService)
         {
             _artistService = artistService;
+            _albumService = albumService;
+            _trackService = trackService;
         }
 
         public void OnGet()
         {
-            ViewData["PageTitle"] = "Artists";
             Artists = _artistService.GetPaginatedArtists(CurrentPage, PageSize, SortBy);
             Count = _artistService.GetCount();
         }
@@ -48,6 +53,13 @@ namespace ChinookWeb.Pages.Artists
             {
                 Artists = Artists.Where(a => a.Name.ToLower().Contains(searchString.ToLower())).ToList();
             }
+        }
+
+        public IActionResult OnPostDeleteArtist(int artistId)
+        {
+            _albumService.DeleteAlbums(artistId);
+            _artistService.DeleteArtist(artistId);
+            return RedirectToPage();
         }
         
     }

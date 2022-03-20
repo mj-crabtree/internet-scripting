@@ -7,6 +7,7 @@ namespace ChinookService.TrackService
     public interface ITrackService
     {
         public Track MakeNewTrack(TrackBindingModel trackData);
-        public abstract void Save(Track track);
+        public void Save(Track track);
+        public void DeleteTracksByArtistId(int artistId);
     }
 }

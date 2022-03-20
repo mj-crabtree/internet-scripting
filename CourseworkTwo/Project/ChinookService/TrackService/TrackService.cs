@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using ChinookContext;
 using ChinookEntities;
 using ChinookEntities.BindingModels;
@@ -41,6 +42,30 @@ namespace ChinookService.TrackService
             {
                 Console.WriteLine(e);
             }
+        }
+
+        public void DeleteTracksByArtistId(int artistId)
+        {
+            //
+            //
+            // // var tracks = _applicationContext.Tracks.Where(t => t.AlbumId.Equals(albumId));
+            // foreach (var track in tracks)
+            // {
+            //     _applicationContext.Tracks.Remove(track);
+            // }
+            //
+            // _applicationContext.SaveChanges();
+        }
+
+        public void DeleteTrack(int trackId)
+        {
+            var track = GetTrack(trackId);
+            _applicationContext.Tracks.Remove(track);
+        }
+
+        private static Track GetTrack(int trackId)
+        {
+            return _applicationContext.Tracks.First(t => t.TrackId == trackId);
         }
 
         private long calculateMilliseconds(TrackBindingModel trackBindingModel)

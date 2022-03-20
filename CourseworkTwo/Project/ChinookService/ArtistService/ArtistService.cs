@@ -3,6 +3,7 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using ChinookContext;
 using ChinookEntities;
+using ChinookService.AlbumService;
 
 namespace ChinookService.ArtistService
 {
@@ -13,6 +14,7 @@ namespace ChinookService.ArtistService
         public ArtistService(ApplicationContext applicationContext)
         {
             _applicationContext = applicationContext;
+            // _albumService = albumService;
         }
 
         public IList<Artist> GetArtists()
@@ -41,6 +43,13 @@ namespace ChinookService.ArtistService
         {
             var artists = GetArtists();
             return artists.Count;
+        }
+
+        public void DeleteArtist(int artistId)
+        {
+            var artist = GetArtist(artistId);
+            _applicationContext.Artists.Remove(artist);
+            _applicationContext.SaveChanges();
         }
     }
 }
