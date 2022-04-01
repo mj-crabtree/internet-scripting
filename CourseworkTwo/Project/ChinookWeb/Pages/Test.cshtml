@@ -1,0 +1,30 @@
+@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ChinookWeb.Pages.Test
+
+<body>
+<div>
+    <form method="post" asp-page-handler="AddField">
+        <table class="table">
+            <tr>
+                <th>Track Name</th>
+                <th>Track Composer</th>
+            </tr>
+            @for (int i = 0; i < @Model.Tracks.Count; i++)
+            {
+                <tr>
+                    <td>
+                        <input name="TrackName" type="text" asp-for="@Model.Tracks[i].TrackName" value="@Model.Tracks[i].TrackName">
+                    </td>
+                    <td>
+                        <input name="TrackComposer" type="text" asp-for="@Model.Tracks[i].TrackComposer" value="@Model.Tracks[i].TrackComposer">
+                    </td>
+                </tr>
+            }
+        </table>
+        <div class="form-group">
+            <input id="Button1" type="submit" value="Add"/>
+        </div>
+    </form>
+</div>
+</body>

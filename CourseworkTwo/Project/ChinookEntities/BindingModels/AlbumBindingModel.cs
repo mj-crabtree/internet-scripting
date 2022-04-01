@@ -7,17 +7,17 @@ namespace ChinookEntities.BindingModels
     {
         public String Title { get; set; }
         public long ArtistId { get; set; }
-        public ICollection<Track> Tracks { get; set; }
+        public TrackBindingModel[] TrackList { get; set; }
 
         public AlbumBindingModel()
         {
         }
 
-        public AlbumBindingModel(string title, long artistId, ICollection<Track> tracks)
+        public AlbumBindingModel(string title, long artistId, TrackBindingModel[] trackList)
         {
             Title = title;
             ArtistId = artistId;
-            Tracks = tracks;
+            TrackList = trackList;
         }
     }
 }

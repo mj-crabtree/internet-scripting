@@ -1,5 +1,96 @@
 @page
 @model CreateAlbumViewModel
-
+@{
+    var playlistModel = ViewData["Playlist"];
+}
 
 <h1 class="display-4">@ViewData["PageTitle"]</h1>
+
+<div class="container">
+    <form method="post">
+        <div class="form-group">
+            <label for="albumTitle">Album Title</label>
+            <input type="text" asp-for="NewAlbum.Title" class="form-control" id="albumTitle" placeholder="Album Title">
+        </div>
+        <div class="form-group">
+            <label for="albumArtist">Album Artist</label>
+            <input type="text" asp-for="NewAlbum.ArtistId" class="form-control" id="albumArtist" placeholder="Album Artist">
+        </div>
+        <div class="form-group">
+            <label for="trackList">Track List</label>
+            <table class="table table-responsive" id="dynamicTable">
+                <tr>
+                    <th>#</th>
+                    <th class="col-md-2">Name</th>
+                    <th class="col-md-3">Composer</th>
+                    <th>Minutes</th>
+                    <th>Seconds</th>
+                    <th class="col-md-1">Size</th>
+                    <th class="col-md-2">Media Type</th>
+                    <th class="col-md-1">Price</th>
+                </tr>
+                @for (int i = 0; i < 1; i++)
+                {
+                    <tr id="row1">
+                        <td>
+                            @(i+=1)
+                        </td>
+                        <td>
+                            <input class="form-control" type="text" asp-for="NewAlbum.TrackList[i].TrackName"/>
+                        </td>
+                        <td>
+                            <input class="form-control" type="text" asp-for="NewAlbum.TrackList[i].TrackComposer">
+                        </td>
+                        <td>
+                            <input class="form-control" type="number" min="0" max="59" asp-for="NewAlbum.TrackList[i].LengthMinutes">
+                        </td>
+                        <td>
+                            <input class="form-control" type="number" min="0" max="59" asp-for="NewAlbum.TrackList[i].LengthSeconds">
+                        </td>
+                        <td>
+                            <input class="form-control" type="number" min="0" max="1023" asp-for="NewAlbum.TrackList[i].SizeInMegabytes">
+                        </td>
+                        <td>
+                            <input class="form-control" type="number" min="0" max="1023" asp-for="NewAlbum.TrackList[i].MediaTypeId">
+                        </td>
+                        <td>
+                            <input class="form-control" type="number" min="0" max="99" asp-for="NewAlbum.TrackList[i].Price">
+                        </td>
+                    </tr>
+                }
+            </table>
+            <button type="button" onclick="addNewRow()">Add Track</button>
+        </div>
+        <hr>
+        <button type="submit">Save</button>
+    </form>
+</div>
+
+<script>
+function addNewRow() {
+    var table = document.getElementById("dynamicTable");
+    var rowCount = table.rows.length;
+    var newRowId = "row" + rowCount;
+    
+    var newRow = table.insertRow(rowCount);
+    newRow.id = newRowId;
+    
+    var cell1 = newRow.insertCell(0);
+    var cell2 = newRow.insertCell(1);
+    var cell3 = newRow.insertCell(2);
+    var cell4 = newRow.insertCell(3);
+    var cell5 = newRow.insertCell(4);
+    var cell6 = newRow.insertCell(5);
+    var cell7 = newRow.insertCell(6);
+    var cell8 = newRow.insertCell(7);
+
+    cell1.innerHTML = rowCount
+    cell2.innerHTML = '<input class="form-control" type="text" asp-for="NewAlbum.TrackList['+ rowCount +'].TrackName"/>';
+    cell3.innerHTML = '<input class="form-control" type="text" asp-for="NewAlbum.TrackList['+ rowCount +'].TrackComposer">';
+    cell4.innerHTML = '<input class="form-control" type="number" min="0" max="59" asp-for="NewAlbum.TrackList['+ rowCount +'].LengthMinutes">';
+    cell5.innerHTML = '<input class="form-control" type="number" min="0" max="59" asp-for="NewAlbum.TrackList['+ rowCount +'].LengthSeconds">';
+    cell6.innerHTML = '<input class="form-control" type="number" min="0" max="1023" asp-for="NewAlbum.TrackList['+ rowCount +'].SizeInMegabytes">';
+    cell7.innerHTML = '<input class="form-control" type="number" min="0" max="1023" asp-for="NewAlbum.TrackList['+ rowCount +'].MediaTypeId">';
+    cell8.innerHTML = '<input class="form-control" type="number" min="0" max="99" asp-for="NewAlbum.TrackList['+ rowCount +'].Price">';
+}
+</script>

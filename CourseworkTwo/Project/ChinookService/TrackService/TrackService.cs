@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using ChinookContext;
 using ChinookEntities;
@@ -44,17 +45,16 @@ namespace ChinookService.TrackService
             }
         }
 
-        public void DeleteTracksByArtistId(int artistId)
+        public ICollection<Track> BuildNewTrackList(IEnumerable<TrackBindingModel> trackList)
         {
-            //
-            //
-            // // var tracks = _applicationContext.Tracks.Where(t => t.AlbumId.Equals(albumId));
-            // foreach (var track in tracks)
-            // {
-            //     _applicationContext.Tracks.Remove(track);
-            // }
-            //
-            // _applicationContext.SaveChanges();
+            ICollection<Track> result = null;
+            foreach (var track in trackList)
+            {
+                var newTrack = MakeNewTrack(track);
+                result.Add(newTrack);
+            }
+
+            return result;
         }
 
         public void DeleteTrack(int trackId)

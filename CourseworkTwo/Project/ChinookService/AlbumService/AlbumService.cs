@@ -86,9 +86,9 @@ namespace ChinookService.AlbumService
         public Album BuildNewAlbum(AlbumBindingModel albumBindingModel)
         {
             var newAlbum = ChinookEntityFactory.Album();
-            newAlbum.Artist = _artistService.GetArtist(albumBindingModel.ArtistId);
             newAlbum.Title = albumBindingModel.Title;
-            newAlbum.Tracks = albumBindingModel.Tracks;
+            newAlbum.Artist = _artistService.GetArtist(albumBindingModel.ArtistId);
+            newAlbum.Tracks = _trackService.BuildNewTrackList(albumBindingModel.TrackList);
             return newAlbum;
         }
 
