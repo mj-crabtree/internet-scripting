@@ -67,5 +67,10 @@ namespace ChinookWeb.Pages.Artists
             return RedirectToPage();
         }
 
+        public IActionResult OnPostMakeNewArtist(string newArtistName)
+        {
+            _artistService.CreateNewArtist(newArtistName);
+            return RedirectToPage();
+        }
     }
 }

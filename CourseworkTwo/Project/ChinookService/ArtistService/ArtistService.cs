@@ -66,7 +66,10 @@ namespace ChinookService.ArtistService
 
         public void CreateNewArtist(string artistName)
         {
-            throw new System.NotImplementedException();
+            var newArtist = ChinookEntityFactory.Artist();
+            newArtist.Name = artistName;
+            _applicationContext.Artists.Add(newArtist);
+            _applicationContext.SaveChanges();
         }
     }
 }

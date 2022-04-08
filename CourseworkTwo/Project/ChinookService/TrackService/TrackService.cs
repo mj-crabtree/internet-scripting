@@ -57,6 +57,21 @@ namespace ChinookService.TrackService
             return result;
         }
 
+        public TrackBindingModel[] AddNewAlbumFromTrackArrayStrings(string[] tracklist)
+        {
+            var output = new TrackBindingModel[tracklist.Length];
+
+            for (var i = 0; i < tracklist.Length; i++)
+            {
+                var track = tracklist[i];
+                var t = new TrackBindingModel();
+                t.TrackName = track;
+                output[i] = t;
+            }
+
+            return output;
+        }
+
         public void DeleteTrack(int trackId)
         {
             var track = GetTrack(trackId);
